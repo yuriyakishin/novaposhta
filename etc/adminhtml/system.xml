@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="carriers">
+            <group id="novaposhta" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Новая почта</label>
+                <field id="active" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Включить</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="city_sender" translate="label" type="select" sortOrder="15" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="0">
+                    <label>Город отправителя</label>
+                    <source_model>Yu\NovaPoshta\Model\Source\City</source_model>
+                </field>
+                <field id="title" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Заголовок</label>
+                </field>
+                <field id="name_ww" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Название метода</label>
+                    <comment>Метод Склад-Склад</comment>
+                </field>
+                <field id="name_wd" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Название метода</label>
+                    <comment>Метод Склад-Двери</comment>
+                </field>
+                <field id="api_key" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Api Key</label>
+                </field>
+                <field id="allowed_methods" translate="label" type="multiselect" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Варианты доставки</label>
+                    <source_model>Yu\NovaPoshta\Model\Source\Method</source_model>
+                    <can_be_empty>1</can_be_empty>
+                </field>
+                <field id="lang" translate="label" type="select" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Язык</label>
+                    <source_model>Yu\NovaPoshta\Model\Source\Lang</source_model>
+                </field>             
+                <field id="sort_order" translate="label" type="text" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Сортировка</label>
+                </field>
+                
+            </group>
+        </section>
+    </system>
+</config>

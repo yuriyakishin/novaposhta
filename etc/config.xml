@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <carriers>
+            <novaposhta>
+                <active>0</active>
+                <title>Новая почта</title>
+                <name_ww>Забрать в отделении</name_ww>
+                <name_wd>До дверей</name_wd>
+                <api_key></api_key>
+                <allowed_methods>novaposhta_to_warehouse,novaposhta_to_door</allowed_methods>
+                <lang>ru</lang>
+                <sort_order>10</sort_order>
+                <model>Yu\NovaPoshta\Model\Carrier</model>
+            </novaposhta>
+        </carriers>
+    </default>
+</config>

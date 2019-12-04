@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Yu\NovaPoshta\Api\Data\CityInterface" type="Yu\NovaPoshta\Model\City" />
+    <preference for="Yu\NovaPoshta\Api\Data\WarehouseInterface" type="Yu\NovaPoshta\Model\Warehouse" />
+    <preference for="Yu\NovaPoshta\Api\CityRepositoryInterface" type="Yu\NovaPoshta\Model\CityRepository" />
+    <preference for="Yu\NovaPoshta\Api\WarehouseRepositoryInterface" type="Yu\NovaPoshta\Model\WarehouseRepository" />
+    <preference for="Yu\NovaPoshta\Api\Data\WarehouseSearchResultsInterface" type="Magento\Framework\Api\SearchResults" />
+    <type name="Magento\Checkout\Model\ShippingInformationManagement">
+        <plugin name="novaposhta_shipping_information" type="Yu\NovaPoshta\Plugin\ShippingInformationManagementPlugin" sortOrder="1" disabled="false"/>
+    </type>
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="commandexample_somecommand" xsi:type="object">Yu\NovaPoshta\Console\Command\ImportCommand</item>
+            </argument>
+        </arguments>
+    </type>
+</config>
