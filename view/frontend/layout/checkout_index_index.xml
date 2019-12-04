@@ -55,10 +55,6 @@
                                                                 <item name="postcode" xsi:type="array">
                                                                     <item name="visible" xsi:type="boolean">false</item>
                                                                 </item>
-                                                                <item name="country_id" xsi:type="array">
-                                                                    <item name="required-entry" xsi:type="boolean">false</item>
-                                                                    <item name="visible" xsi:type="boolean">false</item>
-                                                                </item>
                                                             </item>
                                                         </item>                                                        
                                                         <item name="novaposhta-form-storage" xsi:type="array">

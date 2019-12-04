@@ -93,8 +93,8 @@ class CityImport
         $cityModel = $this->cityFactory->create();
         $cityModel->setCityId($cityId);
         $cityModel->setRef($data['ref']);
-        $cityModel->setNameUa($data['name_ua']);
-        $cityModel->setNameRu($data['name_ru']);
+        $cityModel->setNameUa( ($data['name_ua'] ?  $data['name_ua'] : $data['name_ru']) );
+        $cityModel->setNameRu( ($data['name_ru'] ?  $data['name_ru'] : $data['name_ua']) );
         $cityModel->setArea($data['area']);
         $cityModel->setTypeUa($data['type_ua']);
         $cityModel->setTypeRu($data['type_ru']);

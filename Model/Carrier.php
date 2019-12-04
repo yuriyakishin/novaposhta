@@ -92,6 +92,7 @@ class Carrier extends AbstractCarrier implements CarrierInterface
         }
 
         $cityRef = '';
+        
         if ($this->checkoutSession->getQuote()->getShippingAddress()->getCityNovaposhtaRef()) {
             $cityRef = $this->checkoutSession->getQuote()->getShippingAddress()->getCityNovaposhtaRef();
         } else {
