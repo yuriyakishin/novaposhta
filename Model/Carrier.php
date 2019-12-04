@@ -63,7 +63,7 @@ class Carrier extends AbstractCarrier implements CarrierInterface
             \Magento\Quote\Model\Quote\Address\RateResult\ErrorFactory $rateErrorFactory,
             \Psr\Log\LoggerInterface $logger,
             \Magento\Shipping\Model\Rate\ResultFactory $rateResultFactory,
-            \Magento\Quote\Model\Quote\Address\RateResult\MethodFactory $rateMethodFactory,            
+            \Magento\Quote\Model\Quote\Address\RateResult\MethodFactory $rateMethodFactory,
             \Magento\Checkout\Model\Session $checkoutSession,
             \Yu\NovaPoshta\Service\Curl $curl,
             \Yu\NovaPoshta\Model\ResourceModel\City $cityResourceModel,
@@ -92,7 +92,7 @@ class Carrier extends AbstractCarrier implements CarrierInterface
         }
 
         $cityRef = '';
-        
+
         if ($this->checkoutSession->getQuote()->getShippingAddress()->getCityNovaposhtaRef()) {
             $cityRef = $this->checkoutSession->getQuote()->getShippingAddress()->getCityNovaposhtaRef();
         } else {
@@ -113,17 +113,17 @@ class Carrier extends AbstractCarrier implements CarrierInterface
                 'carriers/novaposhta/city_sender',
                 \Magento\Store\Model\ScopeInterface::SCOPE_STORE
         );
-        
+
         $carrierTitle = $this->_scopeConfig->getValue(
                 'carriers/novaposhta/title',
                 \Magento\Store\Model\ScopeInterface::SCOPE_STORE
         );
-        
+
         $nameWW = $this->_scopeConfig->getValue(
                 'carriers/novaposhta/name_ww',
                 \Magento\Store\Model\ScopeInterface::SCOPE_STORE
         );
-        
+
         $nameWD = $this->_scopeConfig->getValue(
                 'carriers/novaposhta/name_wd',
                 \Magento\Store\Model\ScopeInterface::SCOPE_STORE
@@ -135,10 +135,10 @@ class Carrier extends AbstractCarrier implements CarrierInterface
         /** @var \Magento\Shipping\Model\Rate\Result $result */
         $result = $this->rateResultFactory->create();
 
-        
+
         /** WarehouseWarehouse  */
         if (in_array(self::METHOD_WAREHOUSE, $allowed)) {
-            
+
             $params = [
                 'modelName'        => 'InternetDocument',
                 'calledMethod'     => 'getDocumentPrice',
@@ -165,11 +165,11 @@ class Carrier extends AbstractCarrier implements CarrierInterface
 
             $result->append($methodWarehouse);
         }
-        
+
 
         /** WarehouseDoors  */
         if (in_array(self::METHOD_DOOR, $allowed)) {
-            
+
             $params = [
                 'modelName'        => 'InternetDocument',
                 'calledMethod'     => 'getDocumentPrice',
@@ -225,7 +225,7 @@ class Carrier extends AbstractCarrier implements CarrierInterface
         } else {
             return $codes[$type][$code];
         }
-        
+
         return false;
     }
 
@@ -237,11 +237,10 @@ class Carrier extends AbstractCarrier implements CarrierInterface
         $allowed = explode(',', $this->getConfigData('allowed_methods'));
         $arr = [];
         /**
-        foreach ($allowed as $_code)
-        {
-            $arr[$_code] = $this->getCode('method', $_code);
-        }*/
-
+          foreach ($allowed as $_code)
+          {
+          $arr[$_code] = $this->getCode('method', $_code);
+          } */
         return $allowed;
     }
 
@@ -251,8 +250,12 @@ class Carrier extends AbstractCarrier implements CarrierInterface
      */
     public function getNovaPoshtaPrice($params)
     {
+        if (empty($params['methodProperties']['Weight'])) {
+            $params['methodProperties']['Weight'] = 1;
+        }
+
         $data = $this->curl->getDataImport($params);
-        
+
         $cost = '';
         if (isset($data[0]['Cost'])) {
             $cost = $data[0]['Cost'];
