@@ -8,6 +8,15 @@ define(
                         'postcode': {
                             'required': false
                         },
+                        'country_id': {
+                            'required': false
+                        },
+                        'region': {
+                            'required': false
+                        },
+                        'region_id': {
+                            'required': false
+                        },
                         'city_novaposhta_ref': {
                             'required': true
                         }
