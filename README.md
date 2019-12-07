@@ -14,7 +14,7 @@ php bin/magento module:enable Yu_NovaPoshta
 php bin/magento setup:upgrade
 ```
 
-Импортировать справочник городов и отделений Новой Почты
+Импортировать справочники городов и отделений Новой Почты
 
 ```
 php bin/magento novaposhta:data:import
@@ -23,9 +23,15 @@ php bin/magento novaposhta:data:import
 
 ## Настройка
 
-После установки необходимо получить ключ API на сайте новой почты, в личном кабинете.
+После установки необходимо получить ключ API на сайте Новой Почты в личном кабинете.
 Как получить API ключ можно посмотреть здесь: https://www.youtube.com/watch?v=Gjc6vXUY1as
 
 Ключ API и настройки модуля добавляются в разделе `Кофигурация - Продажа - Методы доставки`
 
 ![alt text](/docs/config.jpg "Configuration of Yu_NovaPoshta")
+
+### Поддержка
+
+Вопросы, пожелания можно писать на  
+email: yuriy.akishin@gmail.com  
+skype: yuriy-a76
