@@ -63,15 +63,15 @@ class WarehouseImport
      */
     public function execute(\Closure $cl = null)
     {
-        $importWarehouses = $this->importWarehouses();
+        $warehousesFromNovaPoshta = $this->importWarehouses();
         $warehouses = $this->getWarehousesFromDb();
 
-        foreach ($importWarehouses as $importWarehouse)
+        foreach ($warehousesFromNovaPoshta as $warehouseFromNovaPoshta)
         {
-            $key = array_search($importWarehouse['ref'], array_column($warehouses, 'ref'), true);
+            $key = array_search($warehouseFromNovaPoshta['ref'], array_column($warehouses, 'ref'), true);
 
-            if ($key === false) {
-                $this->saveWarehouse($importWarehouse);
+            if ($key === false || empty($key)) {
+                $this->saveWarehouse($warehouseFromNovaPoshta);
             } else {
                 
                 if(!isset($warehouses[$key]['warehouse_id'])) {
@@ -79,19 +79,19 @@ class WarehouseImport
                 }                
                 
                 if (                        
-                        ($warehouses[$key]['ref'] !== $importWarehouse['ref']) ||
-                        ($warehouses[$key]['name_ua'] !== $importWarehouse['name_ua']) ||
-                        ($warehouses[$key]['name_ru'] !== $importWarehouse['name_ru']) ||
-                        ($warehouses[$key]['city_ref'] !== $importWarehouse['city_ref']) ||
-                        ($warehouses[$key]['number'] !== $importWarehouse['number'])
+                        ($warehouses[$key]['ref'] !== $warehouseFromNovaPoshta['ref']) ||
+                        ($warehouses[$key]['name_ua'] !== $warehouseFromNovaPoshta['name_ua']) ||
+                        ($warehouses[$key]['name_ru'] !== $warehouseFromNovaPoshta['name_ru']) ||
+                        ($warehouses[$key]['city_ref'] !== $warehouseFromNovaPoshta['city_ref']) ||
+                        ($warehouses[$key]['number'] !== $warehouseFromNovaPoshta['number'])
                 ) {
                     $warehouseId = $warehouses[$key]['warehouse_id'];
-                    $this->saveWarehouse($importWarehouse, $warehouseId);
+                    $this->saveWarehouse($warehouseFromNovaPoshta, $warehouseId);
                 }
             }
             
             if($cl !== null) {
-                $cl($importWarehouse['ref'] . ' ' . $importWarehouse['name_ru']);
+                $cl($warehouseFromNovaPoshta['ref'] . ' ' . $warehouseFromNovaPoshta['name_ru']);
             }
         }
     }

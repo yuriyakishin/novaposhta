@@ -63,15 +63,15 @@ class CityImport
      */
     public function execute(\Closure $cl = null)
     {
-        $importCities = $this->importCities();
+        $citiesFromNovaPoshta = $this->importCities();
         $cities = $this->getCitiesFromDb();
 
-        foreach ($importCities as $importCity)
+        foreach ($citiesFromNovaPoshta as $cityFromNovaPoshta)
         {
-            $key = array_search($importCity['ref'], array_column($cities, 'ref'), true);
+            $key = array_search($cityFromNovaPoshta['ref'], array_column($cities, 'ref'), true);
 
-            if ($key === false) {
-                $this->saveCity($importCity);
+            if ($key === false || empty($key)) {
+                $this->saveCity($cityFromNovaPoshta);
             } else {
                 
                 if(!isset($cities[$key]['city_id'])) {
@@ -79,20 +79,20 @@ class CityImport
                 }
                 
                 if (
-                        ($cities[$key]['ref'] !== $importCity['ref']) ||
-                        ($cities[$key]['name_ua'] !== $importCity['name_ua']) ||
-                        ($cities[$key]['name_ru'] !== $importCity['name_ru']) ||
-                        ($cities[$key]['area'] !== $importCity['area']) ||
-                        ($cities[$key]['type_ua'] !== $importCity['type_ua']) ||
-                        ($cities[$key]['type_ru'] !== $importCity['type_ru'])
+                        ($cities[$key]['ref'] !== $cityFromNovaPoshta['ref']) ||
+                        ($cities[$key]['name_ua'] !== $cityFromNovaPoshta['name_ua']) ||
+                        ($cities[$key]['name_ru'] !== $cityFromNovaPoshta['name_ru']) ||
+                        ($cities[$key]['area'] !== $cityFromNovaPoshta['area']) ||
+                        ($cities[$key]['type_ua'] !== $cityFromNovaPoshta['type_ua']) ||
+                        ($cities[$key]['type_ru'] !== $cityFromNovaPoshta['type_ru'])
                 ) {
                     $cityId = $cities[$key]['city_id'];
-                    $this->saveCity($importCity, $cityId);
+                    $this->saveCity($cityFromNovaPoshta, $cityId);
                 }
             }
             
             if(is_callable($cl)) {
-                $cl($importCity['ref'] . ' ' . $importCity['name_ru']);
+                $cl($cityFromNovaPoshta['ref'] . ' ' . $cityFromNovaPoshta['name_ru']);
             }
         }
     }
