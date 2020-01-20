@@ -35,6 +35,13 @@ class CityImport
      */
     private $cityCollectionFactory;
 
+    /**
+     * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
+     * @param \Yu\NovaPoshta\Service\Curl $curl
+     * @param \Yu\NovaPoshta\Model\CityFactory $cityFactory
+     * @param \Yu\NovaPoshta\Model\ResourceModel\City $cityResource
+     * @param \Yu\NovaPoshta\Model\ResourceModel\City\CollectionFactory $cityCollectionFactory
+     */
     public function __construct(            
             \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
             \Yu\NovaPoshta\Service\Curl $curl,
@@ -51,6 +58,7 @@ class CityImport
     }
 
     /**
+     * @param \Closure $cl
      * @return void
      */
     public function execute(\Closure $cl = null)
@@ -65,7 +73,11 @@ class CityImport
             if ($key === false) {
                 $this->saveCity($importCity);
             } else {
-                $cityId = $cities[$key]['city_id'];
+                
+                if(!isset($cities[$key]['city_id'])) {
+                    continue;
+                }
+                
                 if (
                         ($cities[$key]['ref'] !== $importCity['ref']) ||
                         ($cities[$key]['name_ua'] !== $importCity['name_ua']) ||
@@ -74,6 +86,7 @@ class CityImport
                         ($cities[$key]['type_ua'] !== $importCity['type_ua']) ||
                         ($cities[$key]['type_ru'] !== $importCity['type_ru'])
                 ) {
+                    $cityId = $cities[$key]['city_id'];
                     $this->saveCity($importCity, $cityId);
                 }
             }

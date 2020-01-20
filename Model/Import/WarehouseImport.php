@@ -35,6 +35,13 @@ class WarehouseImport
      */
     private $warehouseCollectionFactory;
 
+    /** 
+     * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
+     * @param \Yu\NovaPoshta\Service\Curl $curl
+     * @param \Yu\NovaPoshta\Model\WarehouseFactory $warehouseFactory
+     * @param \Yu\NovaPoshta\Model\ResourceModel\Warehouse $warehouseResource
+     * @param \Yu\NovaPoshta\Model\ResourceModel\Warehouse\CollectionFactory $warehouseCollectionFactory
+     */
     public function __construct(            
             \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
             \Yu\NovaPoshta\Service\Curl $curl,
@@ -50,6 +57,10 @@ class WarehouseImport
         $this->warehouseCollectionFactory = $warehouseCollectionFactory;
     }
 
+    /**
+     * @param \Closure $cl
+     * @return void
+     */
     public function execute(\Closure $cl = null)
     {
         $importWarehouses = $this->importWarehouses();
@@ -62,14 +73,19 @@ class WarehouseImport
             if ($key === false) {
                 $this->saveWarehouse($importWarehouse);
             } else {
-                $warehouseId = $warehouses[$key]['warehouse_id'];
-                if (
+                
+                if(!isset($warehouses[$key]['warehouse_id'])) {
+                    continue;
+                }                
+                
+                if (                        
                         ($warehouses[$key]['ref'] !== $importWarehouse['ref']) ||
                         ($warehouses[$key]['name_ua'] !== $importWarehouse['name_ua']) ||
                         ($warehouses[$key]['name_ru'] !== $importWarehouse['name_ru']) ||
                         ($warehouses[$key]['city_ref'] !== $importWarehouse['city_ref']) ||
                         ($warehouses[$key]['number'] !== $importWarehouse['number'])
                 ) {
+                    $warehouseId = $warehouses[$key]['warehouse_id'];
                     $this->saveWarehouse($importWarehouse, $warehouseId);
                 }
             }
