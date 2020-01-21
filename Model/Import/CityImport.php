@@ -72,11 +72,7 @@ class CityImport
 
             if ($key === false || empty($key)) {
                 $this->saveCity($cityFromNovaPoshta);
-            } else {
-                
-                if(!isset($cities[$key]['city_id'])) {
-                    continue;
-                }
+            } elseif(isset($cities[$key]['city_id'])) {
                 
                 if (
                         ($cities[$key]['ref'] !== $cityFromNovaPoshta['ref']) ||

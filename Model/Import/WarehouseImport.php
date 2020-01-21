@@ -72,11 +72,7 @@ class WarehouseImport
 
             if ($key === false || empty($key)) {
                 $this->saveWarehouse($warehouseFromNovaPoshta);
-            } else {
-                
-                if(!isset($warehouses[$key]['warehouse_id'])) {
-                    continue;
-                }                
+            } elseif(isset($warehouses[$key]['warehouse_id'])) {               
                 
                 if (                        
                         ($warehouses[$key]['ref'] !== $warehouseFromNovaPoshta['ref']) ||
