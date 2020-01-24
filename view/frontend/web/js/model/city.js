@@ -2,7 +2,7 @@ define([
     'jquery',
     'Magento_Checkout/js/model/url-builder',
     'mage/storage',
-    'uiRegistry',
+    'uiRegistry'
 ], function ($, urlBuilder, storage, registry) {
 
     'use strict';
@@ -41,26 +41,7 @@ define([
                             alert("Ошибка загрузки данных.");
                         }
                 );
-
-                /*$.ajax({
-                 url: url.build('rest/all/V1/novaposhta/warehouses'),
-                 type: "POST",
-                 dataType: 'json',
-                 data: JSON.stringify({cityRef: cityRef}),
-                 async: true,
-                 processData: false,
-                 contentType: 'application/json',
-                 error: function () {
-                 alert("Ошибка загрузки данных.");
-                 },
-                 success: function (data) {
-                 //registry.get('checkout.steps.shipping-step.shippingAddress.novaposhta-form-storage').setWarehouses($.parseJSON(data));
-                 this.cities = $.parseJSON(data);
-                 warehouse.setWarehouses(this.cities);
-                 }
-                 });*/
-            }
-            ;
+            };
         }
     };
 })

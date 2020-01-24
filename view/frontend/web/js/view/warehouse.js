@@ -1,33 +1,32 @@
 define([
     'jquery',
     'Magento_Ui/js/form/element/select',
-    'Magento_Checkout/js/model/quote',
-    'Yu_NovaPoshta/js/model/city'
+    'Magento_Checkout/js/model/quote',    
+    'Yu_NovaPoshta/js/model/city',
+    'mage/translate',
+    'Yu_NovaPoshta/js/lib/select2/select2'
 ], function ($, Select, quote, city) {
     'use strict';
 
     return Select.extend({
 
         defaults: {
-            warehouseName: '',    
+            warehouseName: '',
             exports: {
                 warehouseName: '${ $.parentName }.shipping-address-fieldset.street.0:value'
             }
         },
-        
+
         warehouses: {
-            0: {'value': '',
-                'label': '- ' + $.mage.__('choose a branch')
-            }
         },
 
         initialize: function () {
             this._super();
             this.setOptions(this.warehouses);
-            this.warehouseName(this.getPreview()); 
+            this.warehouseName(this.getPreview());
             return this;
         },
-        
+
         initObservable: function () {
             this._super();
             this.observe('warehouseName');
@@ -44,16 +43,23 @@ define([
             }
             return selectedMethodCode;
         },
-        
+
         setDifferedFromDefault: function () {
             this._super();
             this.warehouseName(this.getPreview());
         },
-        
+
         setWarehouses: function (data) {
-            this.clear();
+            this.clear();            
             this.warehouses = data;
             this.setOptions(this.warehouses);
+        },
+        
+        select2: function (element) {
+            $(element).select2({
+                placeholder: $.mage.__('choose a branch'),
+                width: '100%'
+            });
         }
     });
 });

@@ -15,6 +15,9 @@
     optionsCaption: caption,
     optionsValue: 'value',
     optionsText: 'label',
+afterRender: function (element) {
+            select2(element);
+        },
     optionsAfterRender: function(option, item) {
         if (item && item.disabled) {
             ko.applyBindingsToNode(option, {attr: {disabled: true}}, item);
