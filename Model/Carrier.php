@@ -93,20 +93,15 @@ class Carrier extends AbstractCarrier implements CarrierInterface
 
         $cityRef = '';
 
-        if ($this->checkoutSession->getQuote()->getShippingAddress()->getCityNovaposhtaRef()) {
-            $cityRef = $this->checkoutSession->getQuote()->getShippingAddress()->getCityNovaposhtaRef();
-        } else {
+        $cityName = '';
 
-            $cityName = '';
-
-            if ($request->getOrigCity()) {
-                $cityName = $request->getOrigCity();
-            } elseif ($request->getDestCity()) {
-                $cityName = $request->getDestCity();
-            }
-
-            $cityRef = $this->cityResourceModel->getRefByName($cityName);
+        if ($request->getOrigCity()) {
+            $cityName = $request->getOrigCity();
+        } elseif ($request->getDestCity()) {
+            $cityName = $request->getDestCity();
         }
+
+        $cityRef = $this->cityResourceModel->getRefByName($cityName);
 
 
         $citySender = $this->_scopeConfig->getValue(

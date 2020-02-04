@@ -16,24 +16,25 @@ define([
                 cityName: '${ $.parentName }.city:value'
             }
         },
-        
+
         initialize: function () {
             this._super();
-            this.cityName(this.getPreview());            
+            this.cityName(this.getPreview());
             return this;
         },
-        
+
         initObservable: function () {
             this._super();
             this.observe('cityName');
             return this;
         },
-        
+
         select2: function (element) {
-            var lang="ru";
-            if($('html').attr('lang') == "uk") {
-                lang="uk";
-            };
+            var lang = "ru";
+            if ($('html').attr('lang') == "uk") {
+                lang = "uk";
+            }
+            ;
             $(element).select2({
                 placeholder: $.mage.__('select city'),
                 width: 'element',
@@ -59,15 +60,15 @@ define([
                 }
             });
         },
-        
+
         getPreview: function () {
             return $('[name="' + this.inputName + '"] option:selected').text();
         },
-        
+
         getCityName: function () {
             return this.cityName();
         },
-        
+
         setDifferedFromDefault: function () {
             this._super();
             this.cityName(this.getPreview());

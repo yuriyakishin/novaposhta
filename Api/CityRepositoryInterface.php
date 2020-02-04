@@ -23,6 +23,15 @@ interface CityRepositoryInterface
      * @throws \Magento\Framework\Exception\LocalizedException
      */
     public function getById($cityId);
+    
+    /**
+     * Retrieve city.
+     *
+     * @param string $ref
+     * @return \Yu\NovaPoshta\Api\Data\CityInterface
+     * @throws \Magento\Framework\Exception\LocalizedException
+     */
+    public function getByRef($ref);
 
     /**
      * Retrieve cities matching the specified criteria.

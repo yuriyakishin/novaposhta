@@ -53,15 +53,21 @@
                                                                     <item name="config" xsi:type="array">
                                                                         <item name="visible" xsi:type="boolean">false</item>
                                                                     </item>
-                                                                </item>                                                              
+                                                                </item>
+                                                                <item name="country_id" xsi:type="array">
+                                                                    <item name="config" xsi:type="array">
+                                                                        <item name="visible" xsi:type="boolean">false</item>
+                                                                    </item>
+                                                                </item>                                                           
                                                                 <item name="postcode" xsi:type="array">
                                                                     <item name="visible" xsi:type="boolean">false</item>
                                                                 </item>
                                                             </item>
-                                                        </item>                                                        
-                                                        <item name="novaposhta-form-storage" xsi:type="array">
+                                                        </item>
+                                                        <!-- warehouse -->                                                  
+                                                        <item name="novaposhta-form-storage-warehouse" xsi:type="array">
                                                             <item name="component" xsi:type="string">Yu_NovaPoshta/js/view/warehouse</item>
-                                                            <item name="displayArea" xsi:type="string">novaposhta-checkout-form-fields</item>
+                                                            <item name="displayArea" xsi:type="string">novaposhta-checkout-form-fields-warehouse</item>
                                                             <item name="sortOrder" xsi:type="string">0</item>
                                                             <item name="dataScope" xsi:type="string">shippingAddress.warehouse_novaposhta_id</item>
                                                             <item name="provider" xsi:type="string">checkoutProvider</item>
@@ -69,7 +75,7 @@
                                                             <item name="config" xsi:type="array">
                                                                 <item name="template" xsi:type="string">Yu_NovaPoshta/warehouse</item>                                     
                                                             </item>
-                                                        </item>                                                        
+                                                        </item>
                                                     </item>
                                                 </item>
                                             </item>

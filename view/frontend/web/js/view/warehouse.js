@@ -1,7 +1,7 @@
 define([
     'jquery',
     'Magento_Ui/js/form/element/select',
-    'Magento_Checkout/js/model/quote',    
+    'Magento_Checkout/js/model/quote',
     'Yu_NovaPoshta/js/model/city',
     'mage/translate',
     'Yu_NovaPoshta/js/lib/select2/select2'
@@ -50,15 +50,15 @@ define([
         },
 
         setWarehouses: function (data) {
-            this.clear();            
+            this.clear();
             this.warehouses = data;
             this.setOptions(this.warehouses);
         },
-        
+
         select2: function (element) {
             $(element).select2({
                 placeholder: $.mage.__('choose a branch'),
-                width: 'resolve'
+                width: 'element'
             });
         }
     });

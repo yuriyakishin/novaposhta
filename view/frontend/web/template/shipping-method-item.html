@@ -19,8 +19,8 @@
     attr="'id': 'label_method_' + method.method_code + '_' + method.carrier_code">
     <span text="method.method_title"></span>
     <!-- ko if: method.method_code=='novaposhta_to_warehouse' -->
-    <each args="element.getRegion('novaposhta-checkout-form-fields')" render="" />
-    <!-- /ko --> 
+    <each args="element.getRegion('novaposhta-checkout-form-fields-warehouse')" render="" />
+    <!-- /ko -->
 </td> 
 </tr>
 <tr class="row row-error"

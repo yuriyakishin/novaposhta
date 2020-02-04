@@ -87,6 +87,16 @@ class CityRepository implements \Yu\NovaPoshta\Api\CityRepositoryInterface
         $this->cityResourceModel->load($city, $cityId);
         return $city;
     }
+    
+    /**
+     * {@inheritdoc}
+     */
+    public function getByRef($ref)
+    {
+        $city = $this->cityFactory->create();
+        $this->cityResourceModel->load($city, $ref, 'ref');
+        return $city;
+    }
 
     /**
      * {@inheritdoc}

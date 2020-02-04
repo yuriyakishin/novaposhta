@@ -9,9 +9,14 @@ class LayoutProcessor implements \Magento\Checkout\Block\Checkout\LayoutProcesso
 {
 
     /**
-     * @var \Yu\NovaPoshta\Model\ResourceModel\City\CollectionFactory
+     * @var \Yu\NovaPoshta\Api\CityRepositoryInterface
      */
-    private $cityCollectionFactory;
+    private $cityRepository;
+
+    /**
+     * @var \Magento\Checkout\Model\Session
+     */
+    private $checkoutSession;
 
     /**
      * @var \Magento\Framework\App\Config\ScopeConfigInterface
@@ -29,11 +34,13 @@ class LayoutProcessor implements \Magento\Checkout\Block\Checkout\LayoutProcesso
      */
     public function __construct(
             \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
-            \Yu\NovaPoshta\Model\ResourceModel\City\CollectionFactory $cityCollectionFactory
+            \Magento\Checkout\Model\Session $checkoutSession,
+            \Yu\NovaPoshta\Api\CityRepositoryInterface $cityRepository
     )
     {
         $this->scopeConfig = $scopeConfig;
-        $this->cityCollectionFactory = $cityCollectionFactory;
+        $this->cityRepository = $cityRepository;
+        $this->checkoutSession = $checkoutSession;
         $this->lang = $this->scopeConfig->getValue(
                 'carriers/novaposhta/lang',
                 \Magento\Store\Model\ScopeInterface::SCOPE_STORE
@@ -49,25 +56,39 @@ class LayoutProcessor implements \Magento\Checkout\Block\Checkout\LayoutProcesso
      */
     public function process($jsLayout)
     {
-        $cityCollection = $this->cityCollectionFactory->create();
+        $cities = array();
 
-        $cities = [];
-        $cities[] = [
-            'value' => '',
-            'label' => '- ' . __('select city'),
-        ];
+        if ($this->checkoutSession->getQuote()->getShippingAddress()->getCityNovaposhtaRef()) {
+            $ref = $this->checkoutSession->getQuote()->getShippingAddress()->getCityNovaposhtaRef();
+            $city = $this->cityRepository->getByRef($ref);
 
-        foreach ($cityCollection as $city)
-        {
+            if (!empty($city->getData('ref'))) {
+                $cities[] = [
+                    'value' => $city->getData('ref'),
+                    'label' => $city->getData('name_' . $this->lang),
+                ];
+            }
+        } else {
             $cities[] = [
-                'value' => $city->getData('ref'),
-                'label' => $city->getData('name_' . $this->lang),
+                'value' => '',
+                'label' => '- ' . __('select city'),
             ];
         }
 
+        /*
+          $cityCollection = $this->cityCollectionFactory->create();
+          foreach ($cityCollection as $city)
+          {
+          $cities[] = [
+          'value' => $city->getData('ref'),
+          'label' => $city->getData('name_' . $this->lang),
+          ];
+          } */
+
         if (!isset($jsLayout['components']['checkoutProvider']['dictionaries']['city'])) {
-            //$jsLayout['components']['checkoutProvider']['dictionaries']['city'] = $cities;
+            $jsLayout['components']['checkoutProvider']['dictionaries']['city'] = $cities;
         }
+
         return $jsLayout;
     }
 
