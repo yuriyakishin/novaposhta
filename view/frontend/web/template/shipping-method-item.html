@@ -15,12 +15,12 @@
 <td class="col col-carrier"
     attr="'id': 'label_carrier_' + method.method_code + '_' + method.carrier_code"
     text="method.carrier_title" />
-<td class="col col-method"
+<td class="col col-method" width="100%"
     attr="'id': 'label_method_' + method.method_code + '_' + method.carrier_code">
     <span text="method.method_title"></span>
     <!-- ko if: method.method_code=='novaposhta_to_warehouse' -->
     <each args="element.getRegion('novaposhta-checkout-form-fields')" render="" />
-    <!-- /ko -->
+    <!-- /ko --> 
 </td> 
 </tr>
 <tr class="row row-error"

@@ -32,6 +32,15 @@ interface CityRepositoryInterface
      * @throws \Magento\Framework\Exception\LocalizedException
      */
     public function getList(\Magento\Framework\Api\SearchCriteriaInterface $searchCriteria);
+    
+    /**
+     * Retrieve cities matching name.
+     *
+     * @param string $name
+     * @return string | null
+     * @throws \Magento\Framework\Exception\LocalizedException
+     */
+    public function getJsonByCityName(string $name = '');
 
     /**
      * Delete city.

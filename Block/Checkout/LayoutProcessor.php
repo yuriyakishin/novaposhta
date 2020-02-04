@@ -17,7 +17,7 @@ class LayoutProcessor implements \Magento\Checkout\Block\Checkout\LayoutProcesso
      * @var \Magento\Framework\App\Config\ScopeConfigInterface
      */
     private $scopeConfig;
-    
+
     /**
      * @var sting 
      */
@@ -56,23 +56,17 @@ class LayoutProcessor implements \Magento\Checkout\Block\Checkout\LayoutProcesso
             'value' => '',
             'label' => '- ' . __('select city'),
         ];
-        $i = 1;
 
         foreach ($cityCollection as $city)
         {
             $cities[] = [
                 'value' => $city->getData('ref'),
-                'label' => $city->getData('name_'.$this->lang),
+                'label' => $city->getData('name_' . $this->lang),
             ];
-
-            if ($i > 10) {
-                //break;
-            }
-            $i++;
         }
 
         if (!isset($jsLayout['components']['checkoutProvider']['dictionaries']['city'])) {
-            $jsLayout['components']['checkoutProvider']['dictionaries']['city'] = $cities;
+            //$jsLayout['components']['checkoutProvider']['dictionaries']['city'] = $cities;
         }
         return $jsLayout;
     }

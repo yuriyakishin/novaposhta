@@ -9,6 +9,16 @@ class WarehouseRepository implements \Yu\NovaPoshta\Api\WarehouseRepositoryInter
 {
 
     /**
+     * @var \Yu\NovaPoshta\Model\WarehouseFactory
+     */
+    private $warehouseFactory;
+
+    /**
+     * @var \Yu\NovaPoshta\Model\ResourceModel\Warehouse 
+     */
+    private $warehouseResourceModel;
+
+    /**
      * @var \Yu\NovaPoshta\Model\ResourceModel\Warehouse\CollectionFactory
      */
     private $warehouseCollectionFactory;
@@ -22,27 +32,28 @@ class WarehouseRepository implements \Yu\NovaPoshta\Api\WarehouseRepositoryInter
      * @var \Magento\Framework\Api\SearchCriteriaBuilder 
      */
     private $searchCriteriaBuilder;
-    
+
     /**
      * @var \Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface
      */
     private $collectionProcessor;
-    
+
     /**
      * @var \Magento\Framework\App\Config\ScopeConfigInterface
      */
     private $scopeConfig;
-    
+
     /**
      * @var sting 
      */
     private $lang;
 
     /**
-     * 
      * @param \Magento\Framework\Api\SearchCriteriaBuilder $searchCriteriaBuilder
      * @param \Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface $collectionProcessor
      * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
+     * @param \Yu\NovaPoshta\Model\WarehouseFactory $warehouseFactory
+     * @param \Yu\NovaPoshta\Model\ResourceModel\Warehouse $warehouseResourceModel
      * @param \Yu\NovaPoshta\Model\ResourceModel\Warehouse\CollectionFactory $warehouseCollectionFactory
      * @param \Yu\NovaPoshta\Api\Data\WarehouseSearchResultsInterfaceFactory $warehouseSearchResultFactory
      */
@@ -50,10 +61,14 @@ class WarehouseRepository implements \Yu\NovaPoshta\Api\WarehouseRepositoryInter
             \Magento\Framework\Api\SearchCriteriaBuilder $searchCriteriaBuilder,
             \Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface $collectionProcessor,
             \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
+            \Yu\NovaPoshta\Model\WarehouseFactory $warehouseFactory,
+            \Yu\NovaPoshta\Model\ResourceModel\Warehouse $warehouseResourceModel,
             \Yu\NovaPoshta\Model\ResourceModel\Warehouse\CollectionFactory $warehouseCollectionFactory,
             \Yu\NovaPoshta\Api\Data\WarehouseSearchResultsInterfaceFactory $warehouseSearchResultFactory
     )
     {
+        $this->warehouseFactory = $warehouseFactory;
+        $this->warehouseResourceModel = $warehouseResourceModel;
         $this->warehouseCollectionFactory = $warehouseCollectionFactory;
         $this->warehouseSearchResultFactory = $warehouseSearchResultFactory;
         $this->searchCriteriaBuilder = $searchCriteriaBuilder;
@@ -68,25 +83,11 @@ class WarehouseRepository implements \Yu\NovaPoshta\Api\WarehouseRepositoryInter
     /**
      * {@inheritdoc}
      */
-    public function delete(WarehouseInterface $warehouse)
-    {
-        
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function deleteById($warehouseId)
-    {
-        
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function getById($warehouseId)
     {
-        
+        $warehouse = $this->warehouseFactory->create();
+        $this->warehouseResourceModel->load($warehouse, $warehouseId);
+        return $warehouse;
     }
 
     /**
@@ -121,11 +122,11 @@ class WarehouseRepository implements \Yu\NovaPoshta\Api\WarehouseRepositoryInter
     {
         $result = $this->getListByCityRef($cityRef);
         $data = array();
-        foreach($result->getItems() as $item)
+        foreach ($result->getItems() as $item)
         {
             $data[] = [
                 'value' => $item->getData('warehouse_id'),
-                'label' => $item->getData('name_'.$this->lang),
+                'label' => $item->getData('name_' . $this->lang),
             ];
         }
         return json_encode($data);
@@ -136,7 +137,24 @@ class WarehouseRepository implements \Yu\NovaPoshta\Api\WarehouseRepositoryInter
      */
     public function save(WarehouseInterface $warehouse)
     {
-        
+        return $this->warehouseResourceModel->save($warehouse);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function delete(WarehouseInterface $warehouse)
+    {
+        return $this->warehouseResourceModel->delete($warehouse);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function deleteById($warehouseId)
+    {
+        $warehouse = $this->getById($warehouseId);
+        return $this->warehouseResourceModel->delete($warehouse);
     }
 
 }
