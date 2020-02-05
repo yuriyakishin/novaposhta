@@ -58,7 +58,7 @@ define([
         select2: function (element) {
             $(element).select2({
                 placeholder: $.mage.__('choose a branch'),
-                width: 'element'
+                width: 'resolve'
             });
         }
     });
