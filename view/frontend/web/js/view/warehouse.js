@@ -58,7 +58,8 @@ define([
         select2: function (element) {
             $(element).select2({
                 placeholder: $.mage.__('choose a branch'),
-                width: 'resolve'
+                dropdownAutoWidth: true,
+                width: $(element).parent().parent().width().toString() + 'px'
             });
         }
     });
