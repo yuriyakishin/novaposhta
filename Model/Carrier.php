@@ -102,6 +102,13 @@ class Carrier extends AbstractCarrier implements CarrierInterface
         }
 
         $cityRef = $this->cityResourceModel->getRefByName($cityName);
+        
+        /*crutch*/
+        if(empty($cityRef)) {
+            if ($this->checkoutSession->getQuote()->getShippingAddress()->getCityNovaposhtaRef()) {
+                $cityRef = $this->checkoutSession->getQuote()->getShippingAddress()->getCityNovaposhtaRef();
+            }
+        }
 
 
         $citySender = $this->_scopeConfig->getValue(

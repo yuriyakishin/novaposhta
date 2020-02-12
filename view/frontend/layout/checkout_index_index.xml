@@ -42,7 +42,7 @@
                                                                     </item>
                                                                     <item name="dataScope" xsi:type="string">shippingAddress.city_novaposhta_ref</item>
                                                                     <item name="provider" xsi:type="string">checkoutProvider</item>                                                            
-                                                                    <item name="sortOrder" xsi:type="string">10</item>
+                                                                    <item name="sortOrder" xsi:type="string">50</item>
                                                                     <item name="visible" xsi:type="boolean">true</item>
                                                                     <item name="label" xsi:type="string">City</item>
                                                                     <item name="validation" xsi:type="array">
