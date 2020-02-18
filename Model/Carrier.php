@@ -36,6 +36,11 @@ class Carrier extends AbstractCarrier implements CarrierInterface
     private $rateMethodFactory;
 
     /**
+     * @var \Magento\Shipping\Model\Tracking\Result\StatusFactory
+     */
+    protected $trackResultFactory;
+
+    /**
      * @var \Yu\NovaPoshta\Service\Curl
      */
     private $curl;
@@ -56,6 +61,7 @@ class Carrier extends AbstractCarrier implements CarrierInterface
      * @param \Psr\Log\LoggerInterface $logger
      * @param \Magento\Shipping\Model\Rate\ResultFactory $rateResultFactory
      * @param \Magento\Quote\Model\Quote\Address\RateResult\MethodFactory $rateMethodFactory
+     * @param \Magento\Shipping\Model\Tracking\Result\StatusFactory $trackResultFactory
      * @param array $data
      */
     public function __construct(
@@ -64,6 +70,7 @@ class Carrier extends AbstractCarrier implements CarrierInterface
             \Psr\Log\LoggerInterface $logger,
             \Magento\Shipping\Model\Rate\ResultFactory $rateResultFactory,
             \Magento\Quote\Model\Quote\Address\RateResult\MethodFactory $rateMethodFactory,
+            \Magento\Shipping\Model\Tracking\Result\StatusFactory $trackResultFactory,
             \Magento\Checkout\Model\Session $checkoutSession,
             \Yu\NovaPoshta\Service\Curl $curl,
             \Yu\NovaPoshta\Model\ResourceModel\City $cityResourceModel,
@@ -74,6 +81,7 @@ class Carrier extends AbstractCarrier implements CarrierInterface
 
         $this->rateResultFactory = $rateResultFactory;
         $this->rateMethodFactory = $rateMethodFactory;
+        $this->trackResultFactory = $trackResultFactory;
         $this->checkoutSession = $checkoutSession;
         $this->cityResourceModel = $cityResourceModel;
         $this->curl = $curl;
@@ -266,4 +274,26 @@ class Carrier extends AbstractCarrier implements CarrierInterface
         return $cost;
     }
 
+    /**
+     * Check if tracking info is available
+     * @return boolean
+     */
+    public function isTrackingAvailable()
+    {
+        return true;
+    }
+
+    /**
+     * Get tracking information
+     *
+     * @param string $trackNumber
+     * @return \Magento\Shipping\Model\Tracking\Result\Status
+     * @api
+     */
+    public function getTrackingInfo($trackNumber)
+    {
+        $title = $this->getConfigData('title');
+        $url = 'https://novaposhta.ua/tracking/index/cargo_number/'.$trackNumber.'/no_redirect/1';
+        return $this->trackResultFactory->create()->setCarrierTitle($title)->setTracking($trackNumber)->setUrl($url);
+    }
 }
