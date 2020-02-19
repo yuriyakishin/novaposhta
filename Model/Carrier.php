@@ -110,9 +110,9 @@ class Carrier extends AbstractCarrier implements CarrierInterface
         }
 
         $cityRef = $this->cityResourceModel->getRefByName($cityName);
-        
-        /*crutch*/
-        if(empty($cityRef)) {
+
+        /* crutch */
+        if (empty($cityRef)) {
             if ($this->checkoutSession->getQuote()->getShippingAddress()->getCityNovaposhtaRef()) {
                 $cityRef = $this->checkoutSession->getQuote()->getShippingAddress()->getCityNovaposhtaRef();
             }
@@ -165,7 +165,7 @@ class Carrier extends AbstractCarrier implements CarrierInterface
 
             $price = $this->getNovaPoshtaPrice($params);
 
-            /** @var \Magento\Quote\Model\Quote\Address\RateResult\Method $method */
+            /** @var \Magento\Quote\Model\Quote\Address\RateResult\Method $methodWarehouse */
             $methodWarehouse = $this->rateMethodFactory->create();
             $methodWarehouse->setCarrier($this->_code);
             $methodWarehouse->setCarrierTitle($carrierTitle);
@@ -195,6 +195,8 @@ class Carrier extends AbstractCarrier implements CarrierInterface
             ]];
 
             $price = $this->getNovaPoshtaPrice($params);
+
+            /** @var \Magento\Quote\Model\Quote\Address\RateResult\Method $methodDoor */
             $methodDoor = $this->rateMethodFactory->create();
             $methodDoor->setCarrier($this->_code);
             $methodDoor->setCarrierTitle($carrierTitle);
@@ -293,7 +295,8 @@ class Carrier extends AbstractCarrier implements CarrierInterface
     public function getTrackingInfo($trackNumber)
     {
         $title = $this->getConfigData('title');
-        $url = 'https://novaposhta.ua/tracking/index/cargo_number/'.$trackNumber.'/no_redirect/1';
+        $url = 'https://novaposhta.ua/tracking/index/cargo_number/' . $trackNumber . '/no_redirect/1';
         return $this->trackResultFactory->create()->setCarrierTitle($title)->setTracking($trackNumber)->setUrl($url);
     }
+
 }
