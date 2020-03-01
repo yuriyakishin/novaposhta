@@ -8,76 +8,118 @@ use Yu\NovaPoshta\Api\Data\CityInterface;
 class City extends AbstractModel implements CityInterface
 {
 
-    protected function _construct(): void
+    protected function _construct()
     {
         $this->_init(\Yu\NovaPoshta\Model\ResourceModel\City::class);
     }
     
+    /**
+     * {@inheritdoc}
+     */
     public function getArea()
     {
-        $this->getData('area');
+        return $this->getData('area');
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getIdentifier()
     {
-        $this->getData('city_id');
+        return $this->getData('city_id');
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getNameRu()
     {
-        $this->getData('name_ru');
+        return $this->getData('name_ru');
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getNameUa()
     {
-        $this->getData('name_ua');
+        return $this->getData('name_ua');
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getRef()
     {
-        $this->getData('ref');
+        return $this->getData('ref');
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getTypeRu()
     {
-        $this->getData('type_ru');
+        return $this->getData('type_ru');
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getTypeUa()
     {
-        $this->getData('type_ua');
+        return $this->getData('type_ua');
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function setArea($area)
     {
         return $this->setData('area', $area);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function setIdentifier($identifier)
     {
         return $this->setData('city_id', $identifier);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function setNameRu($nameRu)
     {
         return $this->setData('name_ru', $nameRu);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function setNameUa($nameUa)
     {
         return $this->setData('name_ua', $nameUa);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function setRef($ref)
     {
         return $this->setData('ref', $ref);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function setTypeRu($typeRu)
     {
         return $this->setData('type_ru', $typeRu);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function setTypeUa($typeUa)
     {
         return $this->setData('type_ua', $typeUa);

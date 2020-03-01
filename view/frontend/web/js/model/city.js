@@ -2,8 +2,10 @@ define([
     'jquery',
     'Magento_Checkout/js/model/url-builder',
     'mage/storage',
-    'uiRegistry'
-], function ($, urlBuilder, storage, registry) {
+    'uiRegistry',
+    'Magento_Customer/js/model/address-list',
+    'Magento_Checkout/js/model/quote'
+], function ($, urlBuilder, storage, registry, addressList, quote) {
 
     'use strict';
 
@@ -13,6 +15,7 @@ define([
     return {
 
         cityRef: '',
+        cityName: '',
         cities: [],
 
         getCityRef: function () {
@@ -41,7 +44,28 @@ define([
                             alert("Ошибка загрузки данных.");
                         }
                 );
-            };
+            } else if (addressList().length > 0) {
+
+                var cityName = quote.shippingAddress().city;
+
+                if (cityName != this.cityName) {
+                    this.cityName = cityName;
+                    storage.post(
+                            urlBuilder.createUrl('/novaposhta/warehouses-by-city-name', {method: 'post'}),
+                            JSON.stringify({cityName: cityName})
+                            ).done(
+                            function (data) {
+                                this.cities = $.parseJSON(data);
+                                warehouse.setWarehouses(this.cities);
+                            }
+                    ).fail(
+                            function () {
+                                alert("Ошибка загрузки данных.");
+                            }
+                    );
+                }
+            }
+            ;
         }
     };
 })

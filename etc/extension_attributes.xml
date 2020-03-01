@@ -4,5 +4,6 @@
     <extension_attributes for="Magento\Quote\Api\Data\AddressInterface">
         <attribute code="city_novaposhta_ref" type="string" />
         <attribute code="warehouse_novaposhta_id" type="int" />
+        <attribute code="warehouse_novaposhta_address" type="string" />
     </extension_attributes>
 </config>

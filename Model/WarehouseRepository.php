@@ -49,6 +49,11 @@ class WarehouseRepository implements \Yu\NovaPoshta\Api\WarehouseRepositoryInter
     private $lang;
 
     /**
+     * @var \Yu\NovaPoshta\Model\ResourceModel\City
+     */
+    private $resourceModelCity;
+
+    /**
      * @param \Magento\Framework\Api\SearchCriteriaBuilder $searchCriteriaBuilder
      * @param \Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface $collectionProcessor
      * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
@@ -56,6 +61,7 @@ class WarehouseRepository implements \Yu\NovaPoshta\Api\WarehouseRepositoryInter
      * @param \Yu\NovaPoshta\Model\ResourceModel\Warehouse $warehouseResourceModel
      * @param \Yu\NovaPoshta\Model\ResourceModel\Warehouse\CollectionFactory $warehouseCollectionFactory
      * @param \Yu\NovaPoshta\Api\Data\WarehouseSearchResultsInterfaceFactory $warehouseSearchResultFactory
+     * @param \Yu\NovaPoshta\Model\ResourceModel\City $resourceModelCity
      */
     public function __construct(
             \Magento\Framework\Api\SearchCriteriaBuilder $searchCriteriaBuilder,
@@ -64,7 +70,8 @@ class WarehouseRepository implements \Yu\NovaPoshta\Api\WarehouseRepositoryInter
             \Yu\NovaPoshta\Model\WarehouseFactory $warehouseFactory,
             \Yu\NovaPoshta\Model\ResourceModel\Warehouse $warehouseResourceModel,
             \Yu\NovaPoshta\Model\ResourceModel\Warehouse\CollectionFactory $warehouseCollectionFactory,
-            \Yu\NovaPoshta\Api\Data\WarehouseSearchResultsInterfaceFactory $warehouseSearchResultFactory
+            \Yu\NovaPoshta\Api\Data\WarehouseSearchResultsInterfaceFactory $warehouseSearchResultFactory,
+            \Yu\NovaPoshta\Model\ResourceModel\City $resourceModelCity
     )
     {
         $this->warehouseFactory = $warehouseFactory;
@@ -74,6 +81,7 @@ class WarehouseRepository implements \Yu\NovaPoshta\Api\WarehouseRepositoryInter
         $this->searchCriteriaBuilder = $searchCriteriaBuilder;
         $this->collectionProcessor = $collectionProcessor;
         $this->scopeConfig = $scopeConfig;
+        $this->resourceModelCity = $resourceModelCity;
         $this->lang = $scopeConfig->getValue(
                 'carriers/novaposhta/lang',
                 \Magento\Store\Model\ScopeInterface::SCOPE_STORE
@@ -130,6 +138,15 @@ class WarehouseRepository implements \Yu\NovaPoshta\Api\WarehouseRepositoryInter
             ];
         }
         return json_encode($data);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getJsonByCityName($cityName)
+    {
+        $cityRef = $this->resourceModelCity->getRefByName($cityName);
+        return $this->getJsonByCityRef($cityRef);
     }
 
     /**

@@ -14,4 +14,10 @@
             <resource ref="anonymous"/>
         </resources>
     </route>
+    <route url="/V1/novaposhta/warehouses-by-city-name" method="POST">
+        <service class="Yu\NovaPoshta\Api\WarehouseRepositoryInterface" method="getJsonByCityName"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
 </routes>

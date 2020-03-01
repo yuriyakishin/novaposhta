@@ -52,6 +52,7 @@
     <table name="quote_address">
         <column xsi:type="varchar" name="city_novaposhta_ref" nullable="true" length="36" comment="NovaPoshta City Ref"/>
         <column xsi:type="int" name="warehouse_novaposhta_id" nullable="true" comment="NovaPoshta Warehouse Id"/>
+        <column xsi:type="varchar" name="warehouse_novaposhta_address" nullable="true" length="255" comment="NovaPoshta Warehouse Address"/>
     </table>
     
 </schema>

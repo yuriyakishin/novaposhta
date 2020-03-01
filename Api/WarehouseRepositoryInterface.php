@@ -40,6 +40,15 @@ interface WarehouseRepositoryInterface
      * @throws \Magento\Framework\Exception\LocalizedException
      */
     public function getJsonByCityRef($cityRef);
+    
+    /**
+     * Retrieve warehouse.
+     *
+     * @param string $cityName
+     * @return string
+     * @throws \Magento\Framework\Exception\LocalizedException
+     */
+    public function getJsonByCityName($cityName);
 
     /**
      * Retrieve warehouses matching the specified criteria.

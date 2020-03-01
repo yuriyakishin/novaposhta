@@ -3,9 +3,10 @@ define([
     'Magento_Ui/js/form/element/select',
     'Magento_Checkout/js/model/quote',
     'Yu_NovaPoshta/js/model/city',
+    'Magento_Customer/js/model/address-list',
     'mage/translate',
     'Yu_NovaPoshta/js/lib/select2/select2'
-], function ($, Select, quote, city) {
+], function ($, Select, quote, city, addressList) {
     'use strict';
 
     return Select.extend({
@@ -53,6 +54,13 @@ define([
             this.clear();
             this.warehouses = data;
             this.setOptions(this.warehouses);
+
+            if (addressList().length > 0) {
+                var street = quote.shippingAddress().street[0];
+                if (street != '' && street != undefined) {
+                    $("[name='warehouse_novaposhta_id'] option:contains(" + street + ")").attr('selected', 'selected');
+                }
+            }
         },
 
         select2: function (element) {
