@@ -5,13 +5,15 @@
             <novaposhta>
                 <active>0</active>
                 <title>Новая почта</title>
-                <name_ww>Забрать в отделении</name_ww>
-                <name_wd>До дверей</name_wd>
+                <name_ww>Забрать на складе Новой почты</name_ww>
+                <name_wd>Доставка курьером до дверей</name_wd>
                 <api_key></api_key>
                 <allowed_methods>novaposhta_to_warehouse,novaposhta_to_door</allowed_methods>
                 <lang>ru</lang>
                 <sort_order>10</sort_order>
                 <model>Yu\NovaPoshta\Model\Carrier</model>
+                <price_fix></price_fix>
+                <amount_free></amount_free>
             </novaposhta>
         </carriers>
     </default>
