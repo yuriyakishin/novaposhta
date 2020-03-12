@@ -35,11 +35,11 @@
                     <can_be_empty>1</can_be_empty>
                     <comment>Удерживая нажатой клавишу Ctrl выберите варинты доставки.</comment>
                 </field>
-                <field id="price_fix" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="price_fix" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="0">
                     <label>Фиксированная цена</label>
                     <comment>Здесь можно указать фиксированную стоимость доставки. Если указать 0, то доставка будет бесплатной.</comment>
                 </field>
-                <field id="amount_free" translate="label" type="text" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="amount_free" translate="label" type="text" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="0">
                     <label>Сумма бесплатной доставки</label>
                     <comment>Здесь можно указать общую сумму заказа в корзине для которой будет бесплатная доставка.</comment>
                 </field>

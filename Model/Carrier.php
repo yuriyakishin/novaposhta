@@ -139,8 +139,9 @@ class Carrier extends AbstractCarrier implements CarrierInterface
                 \Magento\Store\Model\ScopeInterface::SCOPE_STORE
         );
 
-
         $allowed = $this->getAllowedMethods();
+
+        $customPrice = $this->getCustomPrice();
 
         /** @var \Magento\Shipping\Model\Rate\Result $result */
         $result = $this->rateResultFactory->create();
@@ -163,7 +164,12 @@ class Carrier extends AbstractCarrier implements CarrierInterface
                     'SeatsAmount'   => 1,
             ]];
 
-            $price = $this->getNovaPoshtaPrice($params);
+            $price = 0;
+            if ($customPrice !== null) {
+                $price = $customPrice;
+            } else {
+                $price = $this->getNovaPoshtaPrice($params);
+            }
 
             /** @var \Magento\Quote\Model\Quote\Address\RateResult\Method $methodWarehouse */
             $methodWarehouse = $this->rateMethodFactory->create();
@@ -194,7 +200,12 @@ class Carrier extends AbstractCarrier implements CarrierInterface
                     'SeatsAmount'   => 1,
             ]];
 
-            $price = $this->getNovaPoshtaPrice($params);
+            $price = 0;
+            if ($customPrice !== null) {
+                $price = $customPrice;
+            } else {
+                $price = $this->getNovaPoshtaPrice($params);
+            }
 
             /** @var \Magento\Quote\Model\Quote\Address\RateResult\Method $methodDoor */
             $methodDoor = $this->rateMethodFactory->create();
@@ -254,6 +265,36 @@ class Carrier extends AbstractCarrier implements CarrierInterface
           $arr[$_code] = $this->getCode('method', $_code);
           } */
         return $allowed;
+    }
+
+    /**
+     * Get custom price from system config
+     * 
+     * @return float|null
+     */
+    public function getCustomPrice()
+    {
+        $price = -1;
+
+        /** fix price */
+        if (!empty($this->getConfigData('price_fix'))) {
+            $price = $this->getConfigData('price_fix');
+        }
+
+        /** free amount */
+        if (!empty($this->getConfigData('amount_free'))) {
+
+            $amountFree = (float) $this->getConfigData('amount_free');
+            if ($amountFree <= $this->checkoutSession->getQuote()->getGrandTotal()) {
+                $price = 0;
+            }
+        }
+
+        if ($price !== -1) {
+            return $price;
+        }
+
+        return null;
     }
 
     /**
