@@ -141,14 +141,14 @@ class Carrier extends AbstractCarrier implements CarrierInterface
 
         $allowed = $this->getAllowedMethods();
 
-        $customPrice = $this->getCustomPrice();
-
         /** @var \Magento\Shipping\Model\Rate\Result $result */
         $result = $this->rateResultFactory->create();
 
 
         /** WarehouseWarehouse  */
         if (in_array(self::METHOD_WAREHOUSE, $allowed)) {
+            
+            $customPrice = $this->getCustomPrice('warehouse');
 
             $params = [
                 'modelName'        => 'InternetDocument',
@@ -185,6 +185,8 @@ class Carrier extends AbstractCarrier implements CarrierInterface
 
         /** WarehouseDoors  */
         if (in_array(self::METHOD_DOOR, $allowed)) {
+            
+            $customPrice = $this->getCustomPrice('door');
 
             $params = [
                 'modelName'        => 'InternetDocument',
@@ -268,23 +270,25 @@ class Carrier extends AbstractCarrier implements CarrierInterface
     }
 
     /**
-     * Get custom price from system config
+     * Get custom price from system config.
+     * $type = 'warehouse' or 'door'
      * 
+     * @param string $type
      * @return float|null
      */
-    public function getCustomPrice()
+    public function getCustomPrice($type)
     {
         $price = -1;
 
         /** fix price */
-        if (!empty($this->getConfigData('price_fix'))) {
-            $price = $this->getConfigData('price_fix');
+        if (!empty($this->getConfigData('price_fix_'.$type))) {
+            $price = $this->getConfigData('price_fix_'.$type);
         }
 
         /** free amount */
-        if (!empty($this->getConfigData('amount_free'))) {
+        if (!empty($this->getConfigData('amount_free_'.$type))) {
 
-            $amountFree = (float) $this->getConfigData('amount_free');
+            $amountFree = (float) $this->getConfigData('amount_free_'.$type);
             if ($amountFree <= $this->checkoutSession->getQuote()->getGrandTotal()) {
                 $price = 0;
             }

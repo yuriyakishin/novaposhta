@@ -19,7 +19,7 @@
                 </field>
                 <field id="name_ww" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Название метода (Склад-Склад)</label>
-                    <comment>Например: Забрать на складе Новой почты.</comment>
+                    <comment>Например: Самовывоз из Новой Почты.</comment>
                 </field>
                 <field id="name_wd" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Название метода (Склад-Двери)</label>
@@ -35,13 +35,21 @@
                     <can_be_empty>1</can_be_empty>
                     <comment>Удерживая нажатой клавишу Ctrl выберите варинты доставки.</comment>
                 </field>
-                <field id="price_fix" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="0">
-                    <label>Фиксированная цена</label>
-                    <comment>Здесь можно указать фиксированную стоимость доставки. Если указать 0, то доставка будет бесплатной.</comment>
+                <field id="price_fix_warehouse" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Фиксированная цена до склада</label>
+                    <comment>Здесь можно указать фиксированную стоимость доставки до склада. Если указать 0, то доставка будет бесплатной.</comment>
                 </field>
-                <field id="amount_free" translate="label" type="text" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="0">
-                    <label>Сумма бесплатной доставки</label>
-                    <comment>Здесь можно указать общую сумму заказа в корзине для которой будет бесплатная доставка.</comment>
+                <field id="price_fix_door" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Фиксированная цена до дверей</label>
+                    <comment>Здесь можно указать фиксированную стоимость доставки до дверей Если указать 0, то доставка будет бесплатной.</comment>
+                </field>
+                <field id="amount_free_warehouse" translate="label" type="text" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Сумма заказа для бесплатной доставки до склада</label>
+                    <comment>Здесь можно указать общую сумму заказа в корзине для которой будет бесплатная доставка до склада.</comment>
+                </field>
+                <field id="amount_free_door" translate="label" type="text" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Сумма заказа для бесплатной доставки до дверей</label>
+                    <comment>Здесь можно указать общую сумму заказа в корзине для которой будет бесплатная доставка до дверей</comment>
                 </field>
                 <field id="lang" translate="label" type="select" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
                     <label>Язык</label>
