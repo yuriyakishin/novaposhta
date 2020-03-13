@@ -36,5 +36,5 @@ php bin/magento novaposhta:data:import
 email: yuriy.akishin@gmail.com  
 skype: yuriy-a76
 
-**Буду рад если модуль поможет вашему бизнесу.
+**Буду рад если модуль поможет вашему бизнесу. 
 Карта ПриватБанка: 4149 6293 9130 7980**
