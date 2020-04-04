@@ -3,9 +3,7 @@ define([
     'Magento_Ui/js/form/element/select',
     'mage/url',
     'mage/translate',
-    'Yu_NovaPoshta/js/lib/select2/select2',
-    'Yu_NovaPoshta/js/lib/select2/i18n/ru',
-    'Yu_NovaPoshta/js/lib/select2/i18n/uk'
+    'Yu_NovaPoshta/js/lib/select2/select2'
 ], function ($, Select, url) {
     'use strict';
     return Select.extend({
