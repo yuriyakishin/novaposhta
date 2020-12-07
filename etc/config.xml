@@ -16,6 +16,7 @@
                 <price_fix_door></price_fix_door>
                 <amount_free_warehouse></amount_free_warehouse>                
                 <amount_free_door></amount_free_door>
+                <city_fast></city_fast>
             </novaposhta>
         </carriers>
     </default>

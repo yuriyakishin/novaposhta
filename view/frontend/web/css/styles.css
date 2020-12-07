@@ -1,0 +1,10 @@
+.novaposhta-city-fast a {
+    text-decoration: none; 
+    border-bottom: 1px dotted;
+    cursor: pointer;
+    margin-right: 5px;
+    font-size: 0.85em;
+}
+.novaposhta-city-fast a:hover {
+    border-bottom: 0px;
+}

@@ -55,8 +55,14 @@
                     <label>Язык</label>
                     <source_model>Yu\NovaPoshta\Model\Source\Lang</source_model>
                     <comment>Для каждой витрины магазина можно указать язык, русский или украинский.</comment>
-                </field>             
-                <field id="sort_order" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="0">
+                </field>
+                <field id="city_fast" translate="label" type="multiselect" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="0">
+                    <label>Быстрый выбор города</label>
+                    <source_model>Yu\NovaPoshta\Model\Source\City</source_model>
+                    <can_be_empty>1</can_be_empty>
+                    <comment>Города которые будут отображаться под выпадающим списком, и пользователь сможет выбрать их одним кликом.</comment>
+                </field>
+                <field id="sort_order" translate="label" type="text" sortOrder="110" showInDefault="1" showInWebsite="1" showInStore="0">
                     <label>Сортировка</label>
                 </field>
                 

@@ -23,3 +23,6 @@
         };
     }"
 />
+<div class="novaposhta-city-fast" data-bind="foreach: city_fast">
+    <a data-bind="href:$data.value,text: $data.label, click: function(){$parent.onCityFastClick($data.value,$data.label)}"></a>
+</div>

@@ -10,6 +10,7 @@ define([
 
         defaults: {
             cityName: '',
+            city_fast: [],
             exports: {
                 cityName: '${ $.parentName }.city:value'
             }
@@ -71,6 +72,14 @@ define([
         setDifferedFromDefault: function () {
             this._super();
             this.cityName(this.getPreview());
+        },
+
+        onCityFastClick: function (value, label) {
+            var newOption = new Option(label, value, false, false);
+            $('[name="city_novaposhta_ref"]').append(newOption).trigger('change');
+            $('[name="city_novaposhta_ref"]').val(value);
+            $('[name="city_novaposhta_ref"]').trigger('change');
+            //this.cityName(label);
         }
 
     });

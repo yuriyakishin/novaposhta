@@ -19,6 +19,9 @@ define(
                         },
                         'city_novaposhta_ref': {
                             'required': true
+                        },
+                        'city': {
+                            'required': true
                         }
                     };
                 }

@@ -4,13 +4,13 @@ define([
     'mage/storage',
     'uiRegistry',
     'Magento_Customer/js/model/address-list',
-    'Magento_Checkout/js/model/quote'
-], function ($, urlBuilder, storage, registry, addressList, quote) {
+    'Magento_Checkout/js/model/quote',
+    'Magento_Checkout/js/checkout-data'
+], function ($, urlBuilder, storage, registry, addressList, quote, checkoutData) {
 
     'use strict';
 
-    //console.log(registry.get('checkout.steps.shipping-step.shippingAddress.shipping-address-fieldset.region'));
-
+    var cacheKey = 'checkout-data';
 
     return {
 
@@ -64,8 +64,7 @@ define([
                             }
                     );
                 }
-            }
-            ;
+            };
         }
     };
 })

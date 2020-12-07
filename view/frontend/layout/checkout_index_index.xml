@@ -1,6 +1,7 @@
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <head>
         <css src="Yu_NovaPoshta::css/select2.css"></css>
+        <css src="Yu_NovaPoshta::css/styles.css"></css>
     </head>
     <body>
         <referenceBlock name="checkout.root">
@@ -35,10 +36,12 @@
                                                                     <item name="component" xsi:type="string">Yu_NovaPoshta/js/view/city</item>
                                                                     <item name="config" xsi:type="array">
                                                                         <item name="template" xsi:type="string">ui/form/field</item>
-                                                                        <item name="elementTmpl" xsi:type="string">Yu_NovaPoshta/city</item>                                                                        
+                                                                        <item name="elementTmpl" xsi:type="string">Yu_NovaPoshta/city</item>
+                                                                        <item name="customScope" xsi:type="string">shippingAddress</item>                                                                       
                                                                         <item name="imports" xsi:type="array">
                                                                             <item name="setOptions" xsi:type="string">index = checkoutProvider:dictionaries.city</item>
                                                                         </item>
+                                                                        <item name="city_fast" xsi:type="array"></item>
                                                                     </item>
                                                                     <item name="dataScope" xsi:type="string">shippingAddress.city_novaposhta_ref</item>
                                                                     <item name="provider" xsi:type="string">checkoutProvider</item>                                                            
@@ -47,7 +50,7 @@
                                                                     <item name="label" xsi:type="string">City</item>
                                                                     <item name="validation" xsi:type="array">
                                                                         <item name="required-entry" xsi:type="boolean">true</item>
-                                                                    </item>
+                                                                    </item>                                                                   
                                                                 </item>
                                                                 <item name="city" xsi:type="array">
                                                                     <item name="config" xsi:type="array">
