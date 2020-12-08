@@ -79,7 +79,6 @@ define([
             $('[name="city_novaposhta_ref"]').append(newOption).trigger('change');
             $('[name="city_novaposhta_ref"]').val(value);
             $('[name="city_novaposhta_ref"]').trigger('change');
-            //this.cityName(label);
         }
 
     });

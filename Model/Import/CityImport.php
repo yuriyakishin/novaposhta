@@ -64,6 +64,13 @@ class CityImport
     public function execute(\Closure $cl = null)
     {
         $citiesFromNovaPoshta = $this->importCities();
+        if($citiesFromNovaPoshta == null) {
+            if(is_callable($cl)) {
+                $cl('Ошибка импорта городов. Проверьте ключ API.');
+                return ;
+            }
+        }
+        
         $cities = $this->getCitiesFromDb();
 
         foreach ($citiesFromNovaPoshta as $cityFromNovaPoshta)

@@ -64,6 +64,13 @@ class WarehouseImport
     public function execute(\Closure $cl = null)
     {
         $warehousesFromNovaPoshta = $this->importWarehouses();
+        if($warehousesFromNovaPoshta == null) {
+            if(is_callable($cl)) {
+                $cl('Ошибка импорта отделений. Проверьте ключ API.');
+                return ;
+            }
+        }
+        
         $warehouses = $this->getWarehousesFromDb();
 
         foreach ($warehousesFromNovaPoshta as $warehouseFromNovaPoshta)
