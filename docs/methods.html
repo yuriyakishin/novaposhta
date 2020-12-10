@@ -1,0 +1,192 @@
+<li id="opc-shipping_method"
+    class="checkout-shipping-method"
+    data-bind="fadeVisible: visible(), blockLoader: isLoading"
+    role="presentation">
+    <div class="checkout-shipping-method">
+        <p class="step-title amcheckout-title"
+           data-amcheckout-js="step-title"
+           data-bind="i18n: getNameShippingMethod()"
+           data-role="title"></p>
+        <div class="step-content amcheckout-content"
+             data-amcheckout-js="step-content"
+             data-bind="mageInit: {'checkoutCollapsibleSteps': {}}">
+            <div class="amcheckout-wrapper">
+                <!-- ko fastForEach: getRegion('before-shipping-method-form') -->
+                <!-- ko template: getTemplate() --><!-- /ko -->
+                <!-- /ko -->
+                <div id="checkout-step-shipping_method">
+                    <!-- ko if: rates().length  -->
+                    <form class="form methods-shipping" id="co-shipping-method-form" data-bind="submit: setShippingInformation" novalidate="novalidate">
+                        <div id="checkout-shipping-method-load">
+                            <table class="table-checkout-shipping-method amcheckout-shipping-methods">
+                                <thead class="amcheckout-header">
+                                <tr class="row">
+                                    <th class="col col-method" data-bind="i18n: 'Select Method'"></th>
+                                    <th class="col col-price" data-bind="i18n: 'Price'"></th>
+                                    <th class="col col-method" data-bind="i18n: 'Method Title'"></th>
+                                    <th class="col col-carrier" data-bind="i18n: 'Carrier Title'" colspan="2"></th>
+                                </tr>
+                                </thead>
+                                <tbody class="amcheckout-items">
+
+                                <!--ko foreach: { data: rates(), as: 'method'}-->
+                                <tr class="row amcheckout-method"
+                                    data-bind="
+                                        click: $parent.selectShippingMethod,
+                                        css : { '-selected' : $parent.isSelected() == (method.carrier_code + '_' + method.method_code) }">
+                                    <td class="col col-method">
+                                        <!-- ko ifnot: method.error_message -->
+                                        <!-- ko if: $parent.rates().length == 1 -->
+                                        <input class="radio"
+                                               type="radio"
+                                               data-bind="attr: {
+                                                            disabled: false,
+                                                            checked: $parent.rates().length == 1,
+                                                            'value' : method.carrier_code + '_' + method.method_code,
+                                                            'id': 's_method_' + method.method_code,
+                                                            'aria-labelledby': 'label_method_' + method.method_code + '_' + method.carrier_code + ' ' + 'label_carrier_' + method.method_code + '_' + method.carrier_code
+                                                         }" />
+                                        <label class="amcheckout-label -radio"
+                                               data-bind="attr: {
+                                                            'for': 's_method_' + method.method_code
+                                                         }"></label>
+                                        <!-- /ko -->
+                                        <!--ko ifnot: ($parent.rates().length == 1)-->
+                                        <input type="radio"
+                                               data-bind="
+                                                        value: method.carrier_code + '_' + method.method_code,
+                                                        checked: $parent.isSelected,
+                                                        attr: {
+                                                            disabled: false,
+                                                            'id': 's_method_' + method.carrier_code + '_' + method.method_code,
+                                                            'aria-labelledby': 'label_method_' + method.method_code + '_' + method.carrier_code + ' ' + 'label_carrier_' + method.method_code + '_' + method.carrier_code
+                                                        }"
+                                               class="radio"/>
+                                        <label class="amcheckout-label -radio"
+                                               data-bind="attr: {
+                                                            'for': 's_method_' + method.carrier_code + '_' + method.method_code
+                                                         }"></label>
+                                        <!--/ko-->
+                                        <!-- /ko -->
+                                        <!-- ko if: $parent.isModernDesign() && method.error_message -->
+                                        <div class="no-display">
+                                            <input type="radio" data-bind="attr: {'value' : method.method_code, 'id': 's_method_' + method.method_code}"/>
+                                            <label class="amcheckout-label -radio"
+                                                   data-bind="attr: {
+                                                            'for': 's_method_' + method.method_code
+                                                         }"></label>
+                                        </div>
+                                        <!-- /ko -->
+                                    </td>
+                                    <td class="col col-price">
+                                        <!-- ko fastForEach: $parent.getRegion('price') -->
+                                        <!-- ko template: getTemplate() --><!-- /ko -->
+                                        <!-- /ko -->
+                                    </td>
+                                    <td class="col col-method"
+                                        data-bind="text: method.method_title, attr: {'id': 'label_method_' + method.method_code + '_' + method.carrier_code}"></td>
+
+                                    <td class="col col-carrier"
+                                        data-bind="text: method.carrier_title, attr: {'id': 'label_carrier_' + method.method_code + '_' + method.carrier_code, 'colspan': $parent.getColspanCarrier(method)}"></td>
+
+                                    <!-- ko if: $parent.isShippingMethodTooltip(method) -->
+                                    <td class="col col-comment">
+                                        <div class="control">
+                                            <div data-bind="attr: {'class': 'field-tooltip toggle ' + $parent.getAdditionalClassForIcons(method)}">
+                                                <span class="field-tooltip-action"
+                                                    tabindex="0"
+                                                    data-toggle="dropdown"
+                                                    data-bind="mageInit: {'dropdown':{'activeClass': '_active'}}">
+                                                </span>
+                                                <div class="field-tooltip-content"
+                                                     data-target="dropdown"
+                                                    data-bind="html: $parent.getMethodTooltipText(method)">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <!-- /ko -->
+
+                                    <!-- TIG PostNL modification start -->
+                                        <!-- ko if: $parent.isPostNlEnable() && $parent.isModernDesign() -->
+                                            <td class="col col-price">
+                                                <!-- ko ifnot: $parent.canUsePostnlDeliveryOptions(method)-->
+
+                                                    <!-- ko fastForEach: $parent.getRegion('price') -->
+                                                    <!-- ko template: getTemplate() --><!-- /ko -->
+                                                <!-- /ko -->
+                                            <!-- /ko -->
+                                        </td>
+                                    <!-- /ko -->
+                                </tr>
+                                <!-- ko if: method.method_code=='novaposhta_to_warehouse' -->
+                                    <tr>
+                                        <td style="border-top: none;padding-top: 0px;" colspan="4">
+                                            <each args="$parent.getRegion('novaposhta-checkout-form-fields-warehouse')" render="" />
+                                        </td>
+                                    </tr>
+                                <!-- /ko -->
+                                <!-- ko ifnot: $parent.isModernDesign() -->
+                                <!-- ko if: $parent.getCommentShippingMethod(method) -->
+                                <tr class="row">
+                                    <td class="col" colspan="4"
+                                        data-bind="html: $parent.getCommentShippingMethod(method)">
+                                    </td>
+                                </tr>
+                                <!-- /ko -->
+
+                                <!-- ko if:  method.error_message -->
+                                <tr class="row row-error">
+                                    <td class="col col-error" colspan="4">
+                                        <div class="message error">
+                                            <div data-bind="text: method.error_message"></div>
+                                        </div>
+                                        <div class="no-display">
+                                            <input type="radio" data-bind="attr: {'value' : method.method_code, 'id': 's_method_' + method.method_code}"/>
+                                            <label class="amcheckout-label -radio"
+                                                   data-bind="attr: {
+                                                            'for': 's_method_' + method.method_code
+                                                         }"></label>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <!-- /ko -->
+
+                                <!-- TIG PostNL modification start -->
+                                <!-- ko if: ($parent.isPostNlEnable() && $parent.canUsePostnlDeliveryOptions(method)) -->
+                                <tr>
+                                    <td colspan="10" class="postnl-deliveryoptions">
+                                        <!-- ko fastForEach: $parent.getRegion('postnl-deliveryoptions') -->
+                                        <!-- ko template: getTemplate() --><!-- /ko -->
+                                        <!-- /ko -->
+                                    </td>
+                                </tr>
+                                <!-- /ko -->
+                                <!-- TIG PostNL modification end -->
+
+                                <!-- /ko -->
+
+                                <!-- /ko -->
+                                <!-- /ko -->
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div id="onepage-checkout-shipping-method-additional-load">
+                            <!-- ko fastForEach: getRegion('shippingAdditional') -->
+                            <!-- ko template: getTemplate() --><!-- /ko -->
+                            <!-- /ko -->
+                        </div>
+                        <!-- ko if: errorValidationMessage().length > 0 -->
+                        <div class="message notice">
+                            <span><!-- ko text: errorValidationMessage()--><!-- /ko --></span>
+                        </div>
+                        <!-- /ko -->
+                    </form>
+                    <!-- /ko -->
+                    <!-- ko ifnot: rates().length > 0 --><div class="no-quotes-block"><!-- ko i18n: 'Sorry, no quotes are available for this order at this time'--><!-- /ko --></div><!-- /ko -->
+                </div>
+            </div>
+        </div>
+    </div>
+</li>
