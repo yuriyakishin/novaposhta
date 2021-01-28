@@ -35,9 +35,9 @@ define([
             }
             ;
             $(element).select2({
-                placeholder: $.mage.__('select city'),
+                placeholder: $.mage.__(''),
                 dropdownAutoWidth: true,
-                width: $(element).parent().width().toString() + 'px',
+                width: '100%',
                 minimumInputLength: 2,
                 language: lang,
                 ajax: {

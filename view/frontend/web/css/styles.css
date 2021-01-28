@@ -1,5 +1,5 @@
 .novaposhta-city-fast a {
-    text-decoration: none; 
+    text-decoration: none;
     border-bottom: 1px dotted;
     cursor: pointer;
     margin-right: 5px;
@@ -7,4 +7,7 @@
 }
 .novaposhta-city-fast a:hover {
     border-bottom: 0px;
+}
+.label-warehouse-help {
+    font-size: 0.8em;
 }
