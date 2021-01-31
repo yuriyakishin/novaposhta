@@ -8,6 +8,25 @@
 .novaposhta-city-fast a:hover {
     border-bottom: 0px;
 }
-.label-warehouse-help {
+.label-np-help {
     font-size: 0.8em;
+}
+
+table.novaposhta-chek {
+    border-collapse: collapse;
+    width: auto;
+}
+table.novaposhta-chek td {
+     border: 0px;
+     height: 25px;
+     padding: 1px 5px 1px 0px;
+ }
+table.novaposhta-chek td input {
+    height: 17px;
+    width: 17px;
+}
+table.novaposhta-chek td span, img {
+    display: block;
+    font-size: 1.1em;
+    font-weight: 600;
 }

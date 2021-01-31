@@ -12,7 +12,7 @@ define([
             cityName: '',
             city_fast: [],
             exports: {
-                cityName: '${ $.parentName }.city:value'
+                "cityName": "${ $.parentName }.city:value"
             }
         },
 

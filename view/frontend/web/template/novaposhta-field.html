@@ -1,9 +1,7 @@
 <div class="field" data-bind="visible: visible, attr: {'name': element.dataScope}, css: additionalClasses">
 
     <label class="label" data-bind="attr: { for: element.uid }">
-        <!-- ko if: element.label -->
-        <strong translate="element.label"></strong>
-        <!-- /ko -->
+
     </label>
 
     <div class="control" data-bind="css: {'_with-tooltip': element.tooltip}">
@@ -27,12 +25,6 @@
 
         <!-- ko if: element.tooltip -->
             <!-- ko template: element.tooltipTpl --><!-- /ko -->
-        <!-- /ko -->
-
-        <!-- ko if: element.notice -->
-            <div class="field-note" data-bind="attr: { id: element.noticeId }">
-                <span data-bind="text: element.notice"/>
-            </div>
         <!-- /ko -->
 
         <!-- ko if: element.error() -->

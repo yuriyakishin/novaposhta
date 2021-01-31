@@ -18,12 +18,19 @@
     <td class="col col-method"
         attr="'id': 'label_method_' + method.method_code + '_' + method.carrier_code">
         <span text="method.method_title"></span>
-    </td> 
+    </td>
 </tr>
 <!-- ko if: method.method_code=='novaposhta_to_warehouse' -->
 <tr>
     <td style="border-top: none;padding-top: 0px;" colspan="4">
         <each args="element.getRegion('novaposhta-checkout-form-fields-warehouse')" render="" />
+    </td>
+</tr>
+<!-- /ko -->
+<!-- ko if: method.method_code=='novaposhta_to_door' -->
+<tr>
+    <td style="border-top: none;padding-top: 0px;" colspan="4">
+        <each args="element.getRegion('novaposhta-checkout-form-fields-door')" render="" />
     </td>
 </tr>
 <!-- /ko -->

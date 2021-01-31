@@ -1,0 +1,21 @@
+<table class="admin__field admin__field-option novaposhta-chek">
+    <tr>
+        <td width="20px" style="vertical-align: middle">
+            <input type="checkbox"
+                   class="admin__control-checkbox"
+                   simple-checked="checked"
+                   ko-disabled="disabled"
+                   ko-focused="focused"
+                   ko-value="value"
+                   attr="id: uid, name: inputName"/>
+        </td>
+        <td style="vertical-align: middle">
+            <img data-bind="attr: { src: require.toUrl('Yu_NovaPoshta/images/nova-poshta.png') }"/>
+        </td>
+        <td style="vertical-align: middle">
+            <!-- ko if: element.notice -->
+            <span data-bind="i18n: element.notice"/>
+            <!-- /ko -->
+        </td>
+    </tr>
+</table>

@@ -32,16 +32,17 @@
                                                     <item name="children" xsi:type="array">
                                                         <item name="shipping-address-fieldset" xsi:type="array">
                                                             <item name="children" xsi:type="array">
-                                                                <item name="city_novaposhta_check" xsi:type="array">
-                                                                    <item name="component" xsi:type="string">Yu_NovaPoshta/js/view/city-check</item>
-                                                                    <item name="label" xsi:type="string">Доставить Новой Почтой</item>
+                                                                <item name="novaposhta_check" xsi:type="array">
+                                                                    <item name="component" xsi:type="string">Yu_NovaPoshta/js/view/novaposhta-check</item>
+                                                                    <item name="label" xsi:type="string"></item>
+                                                                    <item name="notice" xsi:type="string">Доставка Новой Почтой</item>
                                                                     <item name="sortOrder" xsi:type="string">49</item>
                                                                     <item name="dataScope" xsi:type="string">shippingAddress.city_novaposhta_check</item>
                                                                     <item name="multiple" xsi:type="boolean">false</item>
                                                                     <item name="config" xsi:type="array">
-                                                                        <item name="template" xsi:type="string">Yu_NovaPoshta/field</item>
+                                                                        <item name="template" xsi:type="string">Yu_NovaPoshta/novaposhta-field</item>
                                                                         <item name="customScope" xsi:type="string">shippingAddress</item>
-                                                                        <item name="elementTmpl" xsi:type="string">ui/form/components/single/checkbox</item>
+                                                                        <item name="elementTmpl" xsi:type="string">Yu_NovaPoshta/novaposhta-check</item>
                                                                     </item>
                                                                 </item>
                                                                 <item name="city_novaposhta_ref" xsi:type="array">
@@ -70,17 +71,31 @@
                                                                         <item name="visible" xsi:type="boolean">true</item>
                                                                     </item>
                                                                 </item>
+                                                                <item name="street" xsi:type="array">
+                                                                    <item name="sortOrder" xsi:type="string">52</item>
+                                                                    <item name="config" xsi:type="array">
+                                                                        <item name="visible" xsi:type="boolean">true</item>
+                                                                    </item>
+                                                                </item>
                                                                 <item name="country_id" xsi:type="array">
                                                                     <item name="config" xsi:type="array">
-                                                                        <item name="visible" xsi:type="boolean">false</item>
+                                                                        <item name="visible" xsi:type="boolean">true</item>
                                                                     </item>
                                                                 </item>
                                                                 <item name="postcode" xsi:type="array">
-                                                                    <item name="visible" xsi:type="boolean">false</item>
+                                                                    <item name="config" xsi:type="array">
+                                                                        <item name="visible" xsi:type="boolean">true</item>
+                                                                    </item>
+                                                                </item>
+                                                                <item name="company" xsi:type="array">
+                                                                    <item name="sortOrder" xsi:type="string">80</item>
+                                                                    <item name="config" xsi:type="array">
+                                                                        <item name="visible" xsi:type="boolean">true</item>
+                                                                    </item>
                                                                 </item>
                                                             </item>
                                                         </item>
-                                                        <!-- warehouse -->
+                                                        <!-- to warehouse -->
                                                         <item name="novaposhta-form-storage-warehouse" xsi:type="array">
                                                             <item name="component" xsi:type="string">Yu_NovaPoshta/js/view/warehouse</item>
                                                             <item name="displayArea" xsi:type="string">novaposhta-checkout-form-fields-warehouse</item>
@@ -92,6 +107,20 @@
                                                                 <item name="template" xsi:type="string">Yu_NovaPoshta/warehouse</item>
                                                             </item>
                                                         </item>
+                                                        <!-- / -->
+                                                        <!-- to door -->
+                                                        <item name="novaposhta-form-storage-door" xsi:type="array">
+                                                            <item name="component" xsi:type="string">Yu_NovaPoshta/js/view/door</item>
+                                                            <item name="displayArea" xsi:type="string">novaposhta-checkout-form-fields-door</item>
+                                                            <item name="sortOrder" xsi:type="string">0</item>
+                                                            <item name="dataScope" xsi:type="string">shippingAddress.novaposhta_door</item>
+                                                            <item name="provider" xsi:type="string">checkoutProvider</item>
+                                                            <item name="label" xsi:type="string"></item>
+                                                            <item name="config" xsi:type="array">
+                                                                <item name="template" xsi:type="string">Yu_NovaPoshta/door</item>
+                                                            </item>
+                                                        </item>
+                                                        <!-- / -->
                                                     </item>
                                                 </item>
                                             </item>
