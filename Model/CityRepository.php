@@ -26,7 +26,7 @@ class CityRepository implements \Yu\NovaPoshta\Api\CityRepositoryInterface
     private $citySearchResultFactory;
 
     /**
-     * @var \Magento\Framework\Api\SearchCriteriaBuilder 
+     * @var \Magento\Framework\Api\SearchCriteriaBuilder
      */
     private $searchCriteriaBuilder;
 
@@ -41,7 +41,7 @@ class CityRepository implements \Yu\NovaPoshta\Api\CityRepositoryInterface
     private $scopeConfig;
 
     /**
-     * @var sting 
+     * @var sting
      */
     private $lang;
 
@@ -87,7 +87,7 @@ class CityRepository implements \Yu\NovaPoshta\Api\CityRepositoryInterface
         $this->cityResourceModel->load($city, $cityId);
         return $city;
     }
-    
+
     /**
      * {@inheritdoc}
      */
@@ -117,7 +117,7 @@ class CityRepository implements \Yu\NovaPoshta\Api\CityRepositoryInterface
     /**
      * {@inheritdoc}
      */
-    public function getJsonByCityName(string $name = '')
+    public function getJsonByCityName(string $name = null)
     {
         $data = array();
 
@@ -126,15 +126,15 @@ class CityRepository implements \Yu\NovaPoshta\Api\CityRepositoryInterface
             $collection->addFieldToFilter(
                     ['name_ru', 'name_ua'],
                     [
-                        ['like' => $name . '%'],
-                        ['like' => $name . '%']
+                        ['like' => '%' . $name . '%'],
+                        ['like' => '%' . $name . '%']
                     ]
             );
             foreach ($collection->getItems() as $item)
             {
                 $data[] = [
                     'id'   => $item->getData('ref'),
-                    'text' => $item->getData('name_' . $this->lang),
+                    'text' => $item->getData('name_' . $this->lang). ', ' . $item->getData('type_' . $this->lang),
                 ];
             }
         }
