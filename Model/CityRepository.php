@@ -126,15 +126,15 @@ class CityRepository implements \Yu\NovaPoshta\Api\CityRepositoryInterface
             $collection->addFieldToFilter(
                     ['name_ru', 'name_ua'],
                     [
-                        ['like' => '%' . $name . '%'],
-                        ['like' => '%' . $name . '%']
+                        ['like' => $name . '%'],
+                        ['like' => $name . '%']
                     ]
             );
             foreach ($collection->getItems() as $item)
             {
                 $data[] = [
                     'id'   => $item->getData('ref'),
-                    'text' => $item->getData('name_' . $this->lang). ', ' . $item->getData('type_' . $this->lang),
+                    'text' => $item->getData('name_' . $this->lang),
                 ];
             }
         }
