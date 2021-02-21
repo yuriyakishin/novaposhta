@@ -6,5 +6,5 @@
                 <item name="novaPoshtaData" xsi:type="object">Yu\NovaPoshta\Block\Checkout\LayoutProcessor</item>
             </argument>
         </arguments>
-    </type>   
+    </type>
 </config>

@@ -102,7 +102,7 @@ class Carrier extends AbstractCarrier implements CarrierInterface
         $cityRef = '';
 
         $cityName = '';
-
+        //print_r($request->getData());die;
         if ($request->getOrigCity()) {
             $cityName = $request->getOrigCity();
         } elseif ($request->getDestCity()) {
@@ -147,7 +147,7 @@ class Carrier extends AbstractCarrier implements CarrierInterface
 
         /** WarehouseWarehouse  */
         if (in_array(self::METHOD_WAREHOUSE, $allowed)) {
-            
+
             $customPrice = $this->getCustomPrice('warehouse');
 
             $params = [
@@ -185,7 +185,7 @@ class Carrier extends AbstractCarrier implements CarrierInterface
 
         /** WarehouseDoors  */
         if (in_array(self::METHOD_DOOR, $allowed)) {
-            
+
             $customPrice = $this->getCustomPrice('door');
 
             $params = [
@@ -272,7 +272,7 @@ class Carrier extends AbstractCarrier implements CarrierInterface
     /**
      * Get custom price from system config.
      * $type = 'warehouse' or 'door'
-     * 
+     *
      * @param string $type
      * @return float|null
      */

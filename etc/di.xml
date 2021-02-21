@@ -9,6 +9,9 @@
     <type name="Magento\Checkout\Model\ShippingInformationManagement">
         <plugin name="novaposhta_shipping_information" type="Yu\NovaPoshta\Plugin\ShippingInformationManagementPlugin" sortOrder="1" disabled="false"/>
     </type>
+    <type name="Magento\Quote\Api\ShipmentEstimationInterface">
+        <plugin name="novaposhta_check_plugin" type="Yu\NovaPoshta\Plugin\NovaPoshtaCheckPlugin" sortOrder="100" disabled="false"/>
+    </type>
     <type name="Magento\Framework\Console\CommandList">
         <arguments>
             <argument name="commands" xsi:type="array">

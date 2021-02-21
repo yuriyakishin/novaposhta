@@ -37,8 +37,9 @@
                                                                     <item name="label" xsi:type="string"></item>
                                                                     <item name="notice" xsi:type="string">Доставка Новой Почтой</item>
                                                                     <item name="sortOrder" xsi:type="string">49</item>
-                                                                    <item name="dataScope" xsi:type="string">shippingAddress.city_novaposhta_check</item>
+                                                                    <item name="dataScope" xsi:type="string">shippingAddress.custom_attributes.novaposhta_check</item>
                                                                     <item name="multiple" xsi:type="boolean">false</item>
+                                                                    <item name="provider" xsi:type="string">checkoutProvider</item>
                                                                     <item name="config" xsi:type="array">
                                                                         <item name="template" xsi:type="string">Yu_NovaPoshta/novaposhta-field</item>
                                                                         <item name="customScope" xsi:type="string">shippingAddress</item>

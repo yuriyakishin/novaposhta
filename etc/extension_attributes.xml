@@ -5,5 +5,6 @@
         <attribute code="city_novaposhta_ref" type="string" />
         <attribute code="warehouse_novaposhta_id" type="int" />
         <attribute code="warehouse_novaposhta_address" type="string" />
+        <attribute code="novaposhta_check" type="int" />
     </extension_attributes>
 </config>

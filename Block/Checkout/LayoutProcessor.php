@@ -19,7 +19,7 @@ class LayoutProcessor implements \Magento\Checkout\Block\Checkout\LayoutProcesso
     private $checkoutSession;
 
     /**
-     * @var \Magento\Framework\Api\SearchCriteriaBuilder 
+     * @var \Magento\Framework\Api\SearchCriteriaBuilder
      */
     private $searchCriteriaBuilder;
 
@@ -29,7 +29,7 @@ class LayoutProcessor implements \Magento\Checkout\Block\Checkout\LayoutProcesso
     private $scopeConfig;
 
     /**
-     * @var sting 
+     * @var sting
      */
     private $lang;
 
@@ -78,7 +78,7 @@ class LayoutProcessor implements \Magento\Checkout\Block\Checkout\LayoutProcesso
         } else {
             $cities[] = [
                 'value' => '',
-                'label' => '- ' . __('select city'),
+                'label' => '- ' . __(''),
             ];
         }
 
