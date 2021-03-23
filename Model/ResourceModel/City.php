@@ -8,7 +8,7 @@ class City extends AbstractDb
 {
 
     /**
-     * 
+     *
      * @return void
      */
     protected function _construct(): void
@@ -17,7 +17,7 @@ class City extends AbstractDb
     }
 
     /**
-     * 
+     *
      * @param string $name
      * @return string
      */
@@ -28,6 +28,9 @@ class City extends AbstractDb
                 ->where('city.name_ru=? OR city.name_ua=?', $name)
                 ->limit(1);
         $row = $this->getConnection()->fetchRow($select);
+        if(empty($row) || empty($row['ref'])) {
+            return '';
+        }
         return $row['ref'];
     }
 
