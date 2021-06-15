@@ -77,7 +77,7 @@ class CityImport
         {
             $key = array_search($cityFromNovaPoshta['ref'], array_column($cities, 'ref'), true);
 
-            if ($key === false || empty($key)) {
+            if ($key === false || ($key !== 0 && empty($key))) {
                 $this->saveCity($cityFromNovaPoshta);
             } elseif(isset($cities[$key]['city_id'])) {
                 

@@ -77,7 +77,7 @@ class WarehouseImport
         {
             $key = array_search($warehouseFromNovaPoshta['ref'], array_column($warehouses, 'ref'), true);
 
-            if ($key === false || empty($key)) {
+            if ($key === false || ($key !== 0 && empty($key))) {
                 $this->saveWarehouse($warehouseFromNovaPoshta);
             } elseif(isset($warehouses[$key]['warehouse_id'])) {               
                 
