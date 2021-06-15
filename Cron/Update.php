@@ -8,7 +8,6 @@ namespace Yu\NovaPoshta\Cron;
  */
 class Update
 {
-
     /**
      * @var \Yu\NovaPoshta\Model\Import\CityImport
      */
@@ -20,25 +19,23 @@ class Update
     private $warehouseImport;
 
     /**
-     * @param \Yu\NovaPoshta\Model\Import\CityImport $cityImport
+     * @param \Yu\NovaPoshta\Model\Import\CityImport      $cityImport
      * @param \Yu\NovaPoshta\Model\Import\WarehouseImport $warehouseImport
      */
     public function __construct(
-            \Yu\NovaPoshta\Model\Import\CityImport $cityImport,
-            \Yu\NovaPoshta\Model\Import\WarehouseImport $warehouseImport
-    )
-    {
+        \Yu\NovaPoshta\Model\Import\CityImport $cityImport,
+        \Yu\NovaPoshta\Model\Import\WarehouseImport $warehouseImport
+    ) {
         $this->cityImport = $cityImport;
         $this->warehouseImport = $warehouseImport;
     }
 
     /**
-     * 
+     *
      */
     public function execute()
     {
         $this->cityImport->execute();
         $this->warehouseImport->execute();
     }
-
 }

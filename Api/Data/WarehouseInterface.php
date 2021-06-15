@@ -103,7 +103,7 @@ interface WarehouseInterface
     
     /**
      * Set Warehouse number
-     * 
+     *
      * @param int $number
      * @return WarehouseInterface
      */

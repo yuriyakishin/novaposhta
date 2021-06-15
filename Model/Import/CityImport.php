@@ -4,21 +4,13 @@ namespace Yu\NovaPoshta\Model\Import;
 
 /**
  * Import cities from novaposhta.ua
- *
- * @author Yu
  */
 class CityImport
 {
-
     /**
-     * @var \Yu\NovaPoshta\Service\Curl 
+     * @var \Yu\NovaPoshta\Service\Curl
      */
     private $curl;
-
-    /**
-     * @var \Magento\Framework\App\Config\ScopeConfigInterface
-     */
-    private $scopeConfig;
 
     /**
      * @var \Yu\NovaPoshta\Model\CityFactory
@@ -36,22 +28,18 @@ class CityImport
     private $cityCollectionFactory;
 
     /**
-     * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
-     * @param \Yu\NovaPoshta\Service\Curl $curl
-     * @param \Yu\NovaPoshta\Model\CityFactory $cityFactory
-     * @param \Yu\NovaPoshta\Model\ResourceModel\City $cityResource
+     * @param \Yu\NovaPoshta\Service\Curl                               $curl
+     * @param \Yu\NovaPoshta\Model\CityFactory                          $cityFactory
+     * @param \Yu\NovaPoshta\Model\ResourceModel\City                   $cityResource
      * @param \Yu\NovaPoshta\Model\ResourceModel\City\CollectionFactory $cityCollectionFactory
      */
-    public function __construct(            
-            \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
-            \Yu\NovaPoshta\Service\Curl $curl,
-            \Yu\NovaPoshta\Model\CityFactory $cityFactory,
-            \Yu\NovaPoshta\Model\ResourceModel\City $cityResource,
-            \Yu\NovaPoshta\Model\ResourceModel\City\CollectionFactory $cityCollectionFactory
-    )
-    {
+    public function __construct(
+        \Yu\NovaPoshta\Service\Curl $curl,
+        \Yu\NovaPoshta\Model\CityFactory $cityFactory,
+        \Yu\NovaPoshta\Model\ResourceModel\City $cityResource,
+        \Yu\NovaPoshta\Model\ResourceModel\City\CollectionFactory $cityCollectionFactory
+    ) {
         $this->curl = $curl;
-        $this->scopeConfig = $scopeConfig;
         $this->cityFactory = $cityFactory;
         $this->cityResource = $cityResource;
         $this->cityCollectionFactory = $cityCollectionFactory;
@@ -64,37 +52,32 @@ class CityImport
     public function execute(\Closure $cl = null)
     {
         $citiesFromNovaPoshta = $this->importCities();
-        if($citiesFromNovaPoshta == null) {
-            if(is_callable($cl)) {
-                $cl('Ошибка импорта городов. Проверьте ключ API.');
-                return ;
-            }
+        if ($citiesFromNovaPoshta === null && is_callable($cl)) {
+            $cl('Ошибка импорта городов. Проверьте ключ API.');
+            return;
         }
         
         $cities = $this->getCitiesFromDb();
 
-        foreach ($citiesFromNovaPoshta as $cityFromNovaPoshta)
-        {
+        foreach ($citiesFromNovaPoshta as $cityFromNovaPoshta) {
             $key = array_search($cityFromNovaPoshta['ref'], array_column($cities, 'ref'), true);
 
             if ($key === false || ($key !== 0 && empty($key))) {
                 $this->saveCity($cityFromNovaPoshta);
-            } elseif(isset($cities[$key]['city_id'])) {
-                
-                if (
-                        ($cities[$key]['ref'] !== $cityFromNovaPoshta['ref']) ||
-                        ($cities[$key]['name_ua'] !== $cityFromNovaPoshta['name_ua']) ||
-                        ($cities[$key]['name_ru'] !== $cityFromNovaPoshta['name_ru']) ||
-                        ($cities[$key]['area'] !== $cityFromNovaPoshta['area']) ||
-                        ($cities[$key]['type_ua'] !== $cityFromNovaPoshta['type_ua']) ||
-                        ($cities[$key]['type_ru'] !== $cityFromNovaPoshta['type_ru'])
+            } elseif (isset($cities[$key]['city_id'])) {
+                if (($cities[$key]['ref'] !== $cityFromNovaPoshta['ref']) ||
+                    ($cities[$key]['name_ua'] !== $cityFromNovaPoshta['name_ua']) ||
+                    ($cities[$key]['name_ru'] !== $cityFromNovaPoshta['name_ru']) ||
+                    ($cities[$key]['area'] !== $cityFromNovaPoshta['area']) ||
+                    ($cities[$key]['type_ua'] !== $cityFromNovaPoshta['type_ua']) ||
+                    ($cities[$key]['type_ru'] !== $cityFromNovaPoshta['type_ru'])
                 ) {
                     $cityId = $cities[$key]['city_id'];
                     $this->saveCity($cityFromNovaPoshta, $cityId);
                 }
             }
-            
-            if(is_callable($cl)) {
+
+            if (is_callable($cl)) {
                 $cl($cityFromNovaPoshta['ref'] . ' ' . $cityFromNovaPoshta['name_ru']);
             }
         }
@@ -109,8 +92,8 @@ class CityImport
         $cityModel = $this->cityFactory->create();
         $cityModel->setCityId($cityId);
         $cityModel->setRef($data['ref']);
-        $cityModel->setNameUa( ($data['name_ua'] ?  $data['name_ua'] : $data['name_ru']) );
-        $cityModel->setNameRu( ($data['name_ru'] ?  $data['name_ru'] : $data['name_ua']) );
+        $cityModel->setNameUa(($data['name_ua'] ?: $data['name_ru']));
+        $cityModel->setNameRu(($data['name_ru'] ?: $data['name_ua']));
         $cityModel->setArea($data['area']);
         $cityModel->setTypeUa($data['type_ua']);
         $cityModel->setTypeRu($data['type_ru']);
@@ -119,7 +102,7 @@ class CityImport
 
     /**
      * Return cities array
-     * 
+     *
      * @return array
      */
     private function getCitiesFromDb()
@@ -141,15 +124,14 @@ class CityImport
 
         if ($data) {
             $cityData = [];
-            foreach ($data as $_data)
-            {
+            foreach ($data as $_data) {
                 $cityData[] = [
                     'ref'     => $_data['Ref'],
                     'name_ua' => $_data['Description'],
                     'name_ru' => $_data['DescriptionRu'],
-                    'area'    => isset($_data['Area']) ? $_data['Area'] : '',
-                    'type_ua' => isset($_data['SettlementTypeDescription']) ? $_data['SettlementTypeDescription'] : '',
-                    'type_ru' => isset($_data['SettlementTypeDescriptionRu']) ? $_data['SettlementTypeDescriptionRu'] : '',
+                    'area'    => $_data['Area'] ?? '',
+                    'type_ua' => $_data['SettlementTypeDescription'] ?? '',
+                    'type_ru' => $_data['SettlementTypeDescriptionRu'] ?? '',
                 ];
             }
             return $cityData;
@@ -157,5 +139,4 @@ class CityImport
             return null;
         }
     }
-
 }

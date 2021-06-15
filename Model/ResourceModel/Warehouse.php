@@ -7,7 +7,6 @@ use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
 class Warehouse extends AbstractDb
 {
     /**
-     * 
      * @return void
      */
     protected function _construct(): void

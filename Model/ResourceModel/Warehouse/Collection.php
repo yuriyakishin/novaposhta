@@ -6,7 +6,6 @@ use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
 
 class Collection extends AbstractCollection
 {
-
     protected function _construct(): void
     {
         $this->_init(
@@ -14,5 +13,4 @@ class Collection extends AbstractCollection
             \Yu\NovaPoshta\Model\ResourceModel\Warehouse::class
         );
     }
-
 }
