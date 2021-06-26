@@ -11,7 +11,6 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class ImportCommand extends Command
 {
-
     /**
      * @var \Yu\NovaPoshta\Model\Import\CityImport
      */
@@ -23,11 +22,10 @@ class ImportCommand extends Command
     private $warehouseImport;
 
     public function __construct(
-            \Yu\NovaPoshta\Model\Import\CityImport $cityImport,
-            \Yu\NovaPoshta\Model\Import\WarehouseImport $warehouseImport,
-            string $name = null
-    )
-    {
+        \Yu\NovaPoshta\Model\Import\CityImport $cityImport,
+        \Yu\NovaPoshta\Model\Import\WarehouseImport $warehouseImport,
+        string $name = null
+    ) {
         $this->cityImport = $cityImport;
         $this->warehouseImport = $warehouseImport;
 
@@ -49,20 +47,19 @@ class ImportCommand extends Command
      * @param InputInterface $input
      * @param OutputInterface $output
      *
-     * @return null|int
+     * @return void
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $output->writeln('<info>Import cities.</info>');
-        $this->cityImport->execute(function($message) use($output) {
+        $this->cityImport->execute(function ($message) use ($output) {
             $output->writeln('<info>' . $message . '</info>');
         });
 
         $output->writeln('<info></info>');
         $output->writeln('<info>Import warehouses.</info>');
-        $this->warehouseImport->execute(function($message) use($output) {
+        $this->warehouseImport->execute(function ($message) use ($output) {
             $output->writeln('<info>' . $message . '</info>');
         });
     }
-
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace Yu\NovaPoshta\Service;
 
 /**
@@ -7,38 +8,35 @@ namespace Yu\NovaPoshta\Service;
 class Curl
 {
     /**
-     * @var \Magento\Framework\App\Config\ScopeConfigInterface
-     */
-    private $scopeConfig;
-    
-    /**
-     * @var \Magento\Framework\HTTP\Client\Curl 
+     * @var \Magento\Framework\HTTP\Client\Curl
      */
     private $curl;
-    
-    /** 
-     * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
+
+    /**
+     * @var \Yu\NovaPoshta\Model\Config
+     */
+    private $config;
+
+    /**
      * @param \Magento\Framework\HTTP\Client\Curl $curl
+     * @param \Yu\NovaPoshta\Model\Config         $config
      */
     public function __construct(
-            \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
-            \Magento\Framework\HTTP\Client\Curl $curl
-            )
-    {
-        $this->scopeConfig = $scopeConfig;
+        \Magento\Framework\HTTP\Client\Curl $curl,
+        \Yu\NovaPoshta\Model\Config $config
+    ) {
         $this->curl = $curl;
+        $this->config = $config;
     }
-    
+
     /**
      * @param array $params
+     *
      * @return array
      */
     public function getDataImport($params)
     {
-        $apiKey = $this->scopeConfig->getValue(
-                'carriers/novaposhta/api_key',
-                \Magento\Store\Model\ScopeInterface::SCOPE_STORE
-        );
+        $apiKey = $this->config->getApiKey();
 
         $params['apiKey'] = $apiKey;
 
@@ -46,8 +44,7 @@ class Curl
         $this->curl->post("https://api.novaposhta.ua/v2.0/json/", json_encode($params));
 
         $json = $this->curl->getBody();
-        $data = json_decode($json, true)['data'];
 
-        return $data;
+        return json_decode($json, true)['data'];
     }
 }

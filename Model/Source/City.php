@@ -23,14 +23,13 @@ class City implements \Magento\Shipping\Model\Carrier\Source\GenericInterface
      *
      * @return array
      */
-    public function toOptionArray()
+    public function toOptionArray(): array
     {
         $cityCollection = $this->cityCollectionFactory->create();
         
         $options = [];
-        
-        foreach($cityCollection as $city)
-        {
+
+        foreach ($cityCollection as $city) {
             $options[] = [
                 'value' => $city->getData('ref'),
                 'label' => $city->getData('name_ru') . ', ' . $city->getData('type_ru'),

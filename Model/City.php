@@ -124,5 +124,4 @@ class City extends AbstractModel implements CityInterface
     {
         return $this->setData('type_ua', $typeUa);
     }
-
 }

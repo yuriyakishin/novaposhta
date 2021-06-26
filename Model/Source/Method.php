@@ -7,7 +7,6 @@ namespace Yu\NovaPoshta\Model\Source;
  */
 class Method implements \Magento\Shipping\Model\Carrier\Source\GenericInterface
 {
-
     /**
      * Returns array to be used in multiselect on back-end
      *
@@ -15,11 +14,9 @@ class Method implements \Magento\Shipping\Model\Carrier\Source\GenericInterface
      */
     public function toOptionArray()
     {
-        $options = [
+        return [
             ['value' => 'novaposhta_to_warehouse', 'label' => 'До склада'],
             ['value' => 'novaposhta_to_door', 'label' => 'До дверей'],
         ];
-        return $options;
     }
-
 }

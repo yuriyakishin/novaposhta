@@ -7,7 +7,6 @@ namespace Yu\NovaPoshta\Model\Source;
  */
 class Lang implements \Magento\Shipping\Model\Carrier\Source\GenericInterface
 {
-
     /**
      * Returns array to be used in multiselect on back-end
      *
@@ -15,11 +14,9 @@ class Lang implements \Magento\Shipping\Model\Carrier\Source\GenericInterface
      */
     public function toOptionArray()
     {
-        $options = [
+        return [
             ['value' => 'ru', 'label' => 'Русский'],
             ['value' => 'ua', 'label' => 'Украинский'],
         ];
-        return $options;
     }
-
 }

@@ -7,7 +7,6 @@ namespace Yu\NovaPoshta\Block\Checkout;
  */
 class LayoutProcessor implements \Magento\Checkout\Block\Checkout\LayoutProcessorInterface
 {
-
     /**
      * @var \Yu\NovaPoshta\Api\CityRepositoryInterface
      */
@@ -24,34 +23,26 @@ class LayoutProcessor implements \Magento\Checkout\Block\Checkout\LayoutProcesso
     private $searchCriteriaBuilder;
 
     /**
-     * @var \Magento\Framework\App\Config\ScopeConfigInterface
+     * @var \Yu\NovaPoshta\Model\Config
      */
-    private $scopeConfig;
+    private $config;
 
     /**
-     * @var sting
-     */
-    private $lang;
-
-    /**
-     * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
-     * @param \Yu\NovaPoshta\Model\ResourceModel\City\CollectionFactory $cityCollectionFactory
+     * @param \Magento\Checkout\Model\Session                    $checkoutSession
+     * @param \Magento\Framework\Api\SearchCriteriaBuilder       $searchCriteriaBuilder
+     * @param \Yu\NovaPoshta\Api\CityRepositoryInterface         $cityRepository
+     * @param \Yu\NovaPoshta\Model\Config                        $config
      */
     public function __construct(
-            \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
-            \Magento\Checkout\Model\Session $checkoutSession,
-            \Magento\Framework\Api\SearchCriteriaBuilder $searchCriteriaBuilder,
-            \Yu\NovaPoshta\Api\CityRepositoryInterface $cityRepository
-    )
-    {
-        $this->scopeConfig = $scopeConfig;
+        \Magento\Checkout\Model\Session $checkoutSession,
+        \Magento\Framework\Api\SearchCriteriaBuilder $searchCriteriaBuilder,
+        \Yu\NovaPoshta\Api\CityRepositoryInterface $cityRepository,
+        \Yu\NovaPoshta\Model\Config $config
+    ) {
         $this->cityRepository = $cityRepository;
         $this->checkoutSession = $checkoutSession;
         $this->searchCriteriaBuilder = $searchCriteriaBuilder;
-        $this->lang = $this->scopeConfig->getValue(
-                'carriers/novaposhta/lang',
-                \Magento\Store\Model\ScopeInterface::SCOPE_STORE
-        );
+        $this->config = $config;
     }
 
     /**
@@ -63,7 +54,7 @@ class LayoutProcessor implements \Magento\Checkout\Block\Checkout\LayoutProcesso
      */
     public function process($jsLayout)
     {
-        $cities = array();
+        $cities = [];
 
         if ($this->checkoutSession->getQuote()->getShippingAddress()->getCityNovaposhtaRef()) {
             $ref = $this->checkoutSession->getQuote()->getShippingAddress()->getCityNovaposhtaRef();
@@ -72,7 +63,7 @@ class LayoutProcessor implements \Magento\Checkout\Block\Checkout\LayoutProcesso
             if (!empty($city->getData('ref'))) {
                 $cities[] = [
                     'value' => $city->getData('ref'),
-                    'label' => $city->getData('name_' . $this->lang),
+                    'label' => $city->getData('name_' . $this->config->getLanguage()),
                 ];
             }
         } else {
@@ -87,30 +78,29 @@ class LayoutProcessor implements \Magento\Checkout\Block\Checkout\LayoutProcesso
         }
 
         // быстрый набор городов
-        $cityFastRefsConfig = $this->scopeConfig->getValue(
-                'carriers/novaposhta/city_fast',
-                \Magento\Store\Model\ScopeInterface::SCOPE_STORE
-        );
+        $cityFastRefsConfig = $this->config->getCityFast();
 
         if (!empty($cityFastRefsConfig)) {
-            $citiesFast = array();
+            $citiesFast = [];
             $cityFastRefsIds = explode(',', $cityFastRefsConfig);
             $searchCriteria = $this->searchCriteriaBuilder->addFilter('ref', $cityFastRefsIds, 'in')->create();
             $result = $this->cityRepository->getList($searchCriteria);
-            foreach ($result->getItems() as $item)
-            {
+            foreach ($result->getItems() as $item) {
                 $citiesFast[] = [
                     'value' => $item->getData('ref'),
-                    'label' => $item->getData('name_' . $this->lang),
+                    'label' => $item->getData('name_' . $this->config->getLanguage()),
                 ];
             }
 
-            if (isset($jsLayout['components']['checkout']['children']['steps']['children']['shipping-step']['children']['shippingAddress']['children']['shipping-address-fieldset']['children']['city_novaposhta_ref']['config']['city_fast'])) {
-                $jsLayout['components']['checkout']['children']['steps']['children']['shipping-step']['children']['shippingAddress']['children']['shipping-address-fieldset']['children']['city_novaposhta_ref']['config']['city_fast'] = $citiesFast;
+            if (isset($jsLayout['components']['checkout']['children']['steps']['children']['shipping-step']['children']
+                      ['shippingAddress']['children']['shipping-address-fieldset']['children']
+                      ['city_novaposhta_ref']['config']['city_fast'])) {
+                $jsLayout['components']['checkout']['children']['steps']['children']['shipping-step']['children']
+                ['shippingAddress']['children']['shipping-address-fieldset']['children']
+                ['city_novaposhta_ref']['config']['city_fast'] = $citiesFast;
             }
         }
 
         return $jsLayout;
     }
-
 }

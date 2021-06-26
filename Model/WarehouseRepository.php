@@ -7,14 +7,13 @@ use Yu\NovaPoshta\Api\Data\WarehouseInterface;
 
 class WarehouseRepository implements \Yu\NovaPoshta\Api\WarehouseRepositoryInterface
 {
-
     /**
      * @var \Yu\NovaPoshta\Model\WarehouseFactory
      */
     private $warehouseFactory;
 
     /**
-     * @var \Yu\NovaPoshta\Model\ResourceModel\Warehouse 
+     * @var \Yu\NovaPoshta\Model\ResourceModel\Warehouse
      */
     private $warehouseResourceModel;
 
@@ -24,12 +23,12 @@ class WarehouseRepository implements \Yu\NovaPoshta\Api\WarehouseRepositoryInter
     private $warehouseCollectionFactory;
 
     /**
-     * @var \Yu\NovaPoshta\Api\Data\WarehouseSearchResultsInterfaceFactory 
+     * @var \Yu\NovaPoshta\Api\Data\WarehouseSearchResultsInterfaceFactory
      */
     private $warehouseSearchResultFactory;
 
     /**
-     * @var \Magento\Framework\Api\SearchCriteriaBuilder 
+     * @var \Magento\Framework\Api\SearchCriteriaBuilder
      */
     private $searchCriteriaBuilder;
 
@@ -39,53 +38,42 @@ class WarehouseRepository implements \Yu\NovaPoshta\Api\WarehouseRepositoryInter
     private $collectionProcessor;
 
     /**
-     * @var \Magento\Framework\App\Config\ScopeConfigInterface
-     */
-    private $scopeConfig;
-
-    /**
-     * @var sting 
-     */
-    private $lang;
-
-    /**
      * @var \Yu\NovaPoshta\Model\ResourceModel\City
      */
     private $resourceModelCity;
 
     /**
-     * @param \Magento\Framework\Api\SearchCriteriaBuilder $searchCriteriaBuilder
+     * @var Config
+     */
+    private $config;
+
+    /**
+     * @param \Magento\Framework\Api\SearchCriteriaBuilder                       $searchCriteriaBuilder
      * @param \Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface $collectionProcessor
-     * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
-     * @param \Yu\NovaPoshta\Model\WarehouseFactory $warehouseFactory
-     * @param \Yu\NovaPoshta\Model\ResourceModel\Warehouse $warehouseResourceModel
-     * @param \Yu\NovaPoshta\Model\ResourceModel\Warehouse\CollectionFactory $warehouseCollectionFactory
-     * @param \Yu\NovaPoshta\Api\Data\WarehouseSearchResultsInterfaceFactory $warehouseSearchResultFactory
-     * @param \Yu\NovaPoshta\Model\ResourceModel\City $resourceModelCity
+     * @param \Yu\NovaPoshta\Model\WarehouseFactory                              $warehouseFactory
+     * @param \Yu\NovaPoshta\Model\ResourceModel\Warehouse                       $warehouseResourceModel
+     * @param \Yu\NovaPoshta\Model\ResourceModel\Warehouse\CollectionFactory     $warehouseCollectionFactory
+     * @param \Yu\NovaPoshta\Api\Data\WarehouseSearchResultsInterfaceFactory     $warehouseSearchResultFactory
+     * @param \Yu\NovaPoshta\Model\ResourceModel\City                            $resourceModelCity
      */
     public function __construct(
-            \Magento\Framework\Api\SearchCriteriaBuilder $searchCriteriaBuilder,
-            \Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface $collectionProcessor,
-            \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
-            \Yu\NovaPoshta\Model\WarehouseFactory $warehouseFactory,
-            \Yu\NovaPoshta\Model\ResourceModel\Warehouse $warehouseResourceModel,
-            \Yu\NovaPoshta\Model\ResourceModel\Warehouse\CollectionFactory $warehouseCollectionFactory,
-            \Yu\NovaPoshta\Api\Data\WarehouseSearchResultsInterfaceFactory $warehouseSearchResultFactory,
-            \Yu\NovaPoshta\Model\ResourceModel\City $resourceModelCity
-    )
-    {
+        \Magento\Framework\Api\SearchCriteriaBuilder $searchCriteriaBuilder,
+        \Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface $collectionProcessor,
+        \Yu\NovaPoshta\Model\WarehouseFactory $warehouseFactory,
+        \Yu\NovaPoshta\Model\ResourceModel\Warehouse $warehouseResourceModel,
+        \Yu\NovaPoshta\Model\ResourceModel\Warehouse\CollectionFactory $warehouseCollectionFactory,
+        \Yu\NovaPoshta\Api\Data\WarehouseSearchResultsInterfaceFactory $warehouseSearchResultFactory,
+        \Yu\NovaPoshta\Model\ResourceModel\City $resourceModelCity,
+        \Yu\NovaPoshta\Model\Config $config
+    ) {
         $this->warehouseFactory = $warehouseFactory;
         $this->warehouseResourceModel = $warehouseResourceModel;
         $this->warehouseCollectionFactory = $warehouseCollectionFactory;
         $this->warehouseSearchResultFactory = $warehouseSearchResultFactory;
         $this->searchCriteriaBuilder = $searchCriteriaBuilder;
         $this->collectionProcessor = $collectionProcessor;
-        $this->scopeConfig = $scopeConfig;
         $this->resourceModelCity = $resourceModelCity;
-        $this->lang = $scopeConfig->getValue(
-                'carriers/novaposhta/lang',
-                \Magento\Store\Model\ScopeInterface::SCOPE_STORE
-        );
+        $this->config = $config;
     }
 
     /**
@@ -129,14 +117,14 @@ class WarehouseRepository implements \Yu\NovaPoshta\Api\WarehouseRepositoryInter
     public function getJsonByCityRef($cityRef)
     {
         $result = $this->getListByCityRef($cityRef);
-        $data = array();
-        foreach ($result->getItems() as $item)
-        {
+        $data = [];
+        foreach ($result->getItems() as $item) {
             $data[] = [
                 'value' => $item->getData('warehouse_id'),
-                'label' => $item->getData('name_' . $this->lang),
+                'label' => $item->getData('name_' . $this->config->getLanguage()),
             ];
         }
+
         return json_encode($data);
     }
 
@@ -173,5 +161,4 @@ class WarehouseRepository implements \Yu\NovaPoshta\Api\WarehouseRepositoryInter
         $warehouse = $this->getById($warehouseId);
         return $this->warehouseResourceModel->delete($warehouse);
     }
-
 }

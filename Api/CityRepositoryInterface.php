@@ -45,7 +45,7 @@ interface CityRepositoryInterface
     /**
      * Retrieve cities matching name.
      *
-     * @param string $name | null
+     * @param string|null $name
      * @return string | null
      * @throws \Magento\Framework\Exception\LocalizedException
      */
